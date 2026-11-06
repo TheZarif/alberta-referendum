@@ -4,3 +4,4 @@ openpyxl>=3.1
 requests>=2.31
 matplotlib>=3.7
 geopandas>=0.14
+jupyter>=1.0
