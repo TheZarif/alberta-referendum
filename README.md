@@ -9,7 +9,7 @@ Remote: <https://github.com/TheZarif/alberta-referendum>
 - `data/00-simulated_data` contains a simulated division-level file, used to check the pipeline before the official workbooks are downloaded.
 - `data/01-raw_data` contains the Elections Alberta workbooks and the 338Canada poll snapshot, as obtained.
 - `data/02-analysis_data` contains the cleaned datasets.
-- `other` contains source notes, LLM usage, and saved sketches.
+- `other` contains source notes, LLM usage, saved sketches, and `collaborator/` (the original Colab notebook behind script 06, kept for reference only).
 - `scripts` contains the Python scripts, run in number order.
 
 `paper/` and `models/` from the starter are not included. There is no paper and no fitted model yet.
@@ -28,7 +28,17 @@ python scripts/02-download_data.py
 python scripts/03-clean_data.py
 python scripts/04-test_analysis_data.py
 python scripts/05-exploratory_data_analysis.py
+python scripts/06-spatial_analysis.py
 ```
+
+## Spatial analysis
+
+`scripts/06-spatial_analysis.py` computes Global Moran's I (permutation p-value), descriptive LISA quadrants, and a regional summary for question 10. It was adapted from a collaborator's Colab notebook. Differences from the notebook:
+
+- Votes come from `ed_results_2026.csv`, not pasted values.
+- Locations are approximate riding centres in `data/01-raw_data/riding_centroids.csv` (region labels and coordinates carried over from the notebook, not independently verified). The notebook's Voronoi polygons were dropped because they are not real boundaries.
+- The notebook's OLS/SAR regression was dropped: its covariates (oil and gas share, "Wildrose baseline", migration) were random numbers. Add real covariates before fitting one.
+- Distances scale longitude by cos(latitude), so Moran's I is 0.65 here against the notebook's 0.688.
 
 ## Statement on LLM usage
 
