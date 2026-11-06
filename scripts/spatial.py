@@ -76,6 +76,31 @@ def load_q10() -> gpd.GeoDataFrame:
     return gdf.sort_values("ed_code").reset_index(drop=True)
 
 
+def region_outlines(gdf: gpd.GeoDataFrame, gap_m: float = 300, min_km2: float = 10) -> gpd.GeoSeries:
+    """One outline per region, for drawing region borders on maps.
+
+    A plain dissolve leaves dozens of slivers where simplified riding edges
+    do not quite meet, and their edges show up as stray lines inside a
+    region. Growing each riding by gap_m metres before dissolving and
+    shrinking afterwards closes those gaps; leftover holes and pieces
+    smaller than min_km2 are dropped. Real holes, such as Edmonton inside
+    Central, are kept.
+    """
+    from shapely.geometry import MultiPolygon, Polygon
+
+    metric = gdf.to_crs(METRIC_CRS)
+    grown = metric.assign(geometry=metric.buffer(gap_m)).dissolve("region").buffer(-gap_m)
+    min_area = min_km2 * 1e6
+
+    def clean(geom):
+        parts = getattr(geom, "geoms", [geom])
+        kept = [Polygon(p.exterior, [h for h in p.interiors if Polygon(h).area >= min_area])
+                for p in parts if p.area >= min_area]
+        return kept[0] if len(kept) == 1 else MultiPolygon(kept)
+
+    return grown.apply(clean).set_crs(METRIC_CRS, allow_override=True).to_crs(gdf.crs)
+
+
 #### Spatial weights (row-standardised) ####
 def knn_weights(xy: np.ndarray, k: int) -> np.ndarray:
     """Each division's k nearest divisions by centroid distance."""

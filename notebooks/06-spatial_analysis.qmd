@@ -58,12 +58,14 @@ from IPython.display import Markdown, display
 from matplotlib.colors import Normalize
 
 from spatial import (LISA_COLOURS, REGION_COLOURS, REGION_ORDER, knn_weights, load_q10,
-                     local_moran, moran_test, morans_i, queen_weights)
+                     local_moran, moran_test, morans_i, queen_weights, region_outlines)
 
 N_PERMUTATIONS = 9999   # random reshuffles used for every significance test
 ALPHA = 0.05            # significance threshold
 NORM = Normalize(vmin=5, vmax=55)   # one colour scale for every Option 2 map
 CMAP = "YlOrRd"
+RIDING_LINES = dict(edgecolor="white", linewidth=0.4)    # thin white: borders between ridings
+REGION_LINES = dict(color="#222222", linewidth=1.2)      # thick dark: borders between regions
 
 plt.rcParams.update({"figure.dpi": 110, "font.size": 10, "axes.spines.top": False,
                      "axes.spines.right": False, "axes.titleweight": "bold"})
@@ -87,6 +89,7 @@ The code stops with an error if the vote totals differ from the figures Election
 
 ```{python}
 gdf = load_q10()
+outlines = region_outlines(gdf)
 y = gdf["option2_pct"].to_numpy()
 
 prov_o1, prov_o2 = gdf["choice_1_votes"].sum(), gdf["choice_2_votes"].sum()
@@ -104,28 +107,30 @@ over_50.assign(ed_name=over_50["ed_name"].str.title())[["ed_name", "region", "ch
 ### What we mean by "region"
 "Edmonton" and "Calgary" include only ridings inside those cities. Suburbs and nearby towns, such as St. Albert, Sherwood Park, Airdrie and Chestermere, are counted as **Central**. Keep this in mind when comparing regions.
 
+On this and the other maps, thin white lines separate ridings and thicker dark lines mark the borders between regions.
+
 ```{python}
 fig, ax = plt.subplots(figsize=(6, 8))
 for region in REGION_ORDER:
-    gdf[gdf["region"] == region].plot(ax=ax, color=REGION_COLOURS[region], edgecolor="white", linewidth=0.4)
-gdf.dissolve("region").boundary.plot(ax=ax, color="black", linewidth=0.8)
+    gdf[gdf["region"] == region].plot(ax=ax, color=REGION_COLOURS[region], **RIDING_LINES)
+outlines.boundary.plot(ax=ax, **REGION_LINES)
 ax.legend(handles=[mpatches.Patch(color=REGION_COLOURS[r], label=f"{r} ({(gdf['region'] == r).sum()} ridings)")
-                   for r in REGION_ORDER], loc="lower left", frameon=False)
+                   for r in REGION_ORDER], loc="upper center", bbox_to_anchor=(0.5, 0.0), ncol=2, frameon=False)
 ax.set_title("The five regions used in this notebook")
 ax.set_axis_off()
 plt.show()
 ```
 
 ## 2. The map
-**How to read it.** Each shape is one riding, coloured by its Option 2 share: pale yellow means little support, dark red means more. Black lines mark region borders. Stars mark the ridings where Option 2 won a majority. City ridings are too small to see on the provincial map, so Calgary and Edmonton are enlarged on the right with each riding's share printed on it.
+**How to read it.** Each shape is one riding, coloured by its Option 2 share: pale yellow means little support, dark red means more. Thin white lines separate ridings; thicker dark lines mark region borders. Stars mark the ridings where Option 2 won a majority. City ridings are too small to see on the provincial map, so Calgary and Edmonton are enlarged on the right with each riding's share printed on it.
 
 ```{python}
 fig = plt.figure(figsize=(16, 11))
 gs = fig.add_gridspec(2, 2, width_ratios=[1.2, 1.0])
 ax_main, ax_cal, ax_edm = fig.add_subplot(gs[:, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, 1])
 
-gdf.plot(column="option2_pct", cmap=CMAP, norm=NORM, edgecolor="#555555", linewidth=0.4, ax=ax_main)
-gdf.dissolve("region").boundary.plot(ax=ax_main, color="black", linewidth=1.0)
+gdf.plot(column="option2_pct", cmap=CMAP, norm=NORM, ax=ax_main, **RIDING_LINES)
+outlines.boundary.plot(ax=ax_main, **REGION_LINES)
 for _, r in over_50.iterrows():
     ax_main.plot(r["lon"], r["lat"], marker="*", markersize=15, color="black", markeredgecolor="yellow")
     ax_main.annotate(f"{r['ed_name'].title()}\n{r['option2_pct']:.1f}% Option 2", xy=(r["lon"], r["lat"]),
@@ -140,7 +145,7 @@ fig.colorbar(sm, ax=ax_main, orientation="horizontal", shrink=0.6, pad=0.02,
 
 for ax, region in ((ax_cal, "Calgary"), (ax_edm, "Edmonton")):
     sub = gdf[gdf["region"] == region]
-    sub.plot(column="option2_pct", cmap=CMAP, norm=NORM, edgecolor="#333333", linewidth=0.7, ax=ax)
+    sub.plot(column="option2_pct", cmap=CMAP, norm=NORM, edgecolor="white", linewidth=0.8, ax=ax)
     for _, r in sub.iterrows():
         ax.text(r["lon"], r["lat"], f"{r['option2_pct']:.0f}", fontsize=8, ha="center", va="center", fontweight="bold")
     ax.set_title(f"{region} ({len(sub)} ridings), numbers are Option 2 %")
@@ -327,12 +332,12 @@ for ax, sub_gdf in ((ax_map, gdf), (ax_cal, gdf[gdf["region"] == "Calgary"]), (a
     for name in present:
         part = sub_gdf[sub_gdf["lisa"] == name]
         if len(part):
-            part.plot(color=LISA_COLOURS[name], edgecolor="#555555", linewidth=0.5, ax=ax)
+            part.plot(color=LISA_COLOURS[name], ax=ax, **RIDING_LINES)
     ax.set_axis_off()
-gdf.dissolve("region").boundary.plot(ax=ax_map, color="black", linewidth=0.8)
-ax_map.legend(handles=[mpatches.Patch(facecolor=LISA_COLOURS[n], edgecolor="#555555",
+outlines.boundary.plot(ax=ax_map, **REGION_LINES)
+ax_map.legend(handles=[mpatches.Patch(facecolor=LISA_COLOURS[n], edgecolor="#999999",
                                       label=f"{n} ({(gdf['lisa'] == n).sum()} ridings)") for n in present],
-              loc="lower left", frameon=False)
+              loc="upper center", bbox_to_anchor=(0.5, 0.0), ncol=3, frameon=False)
 ax_map.set_title("Hotspots and coldspots (p < 0.05)")
 ax_cal.set_title("Calgary")
 ax_edm.set_title("Edmonton")
@@ -382,8 +387,9 @@ Turnout is the share of registered electors who cast a ballot. One common idea i
 
 ```{python}
 fig, (ax_map, ax_sc) = plt.subplots(1, 2, figsize=(15, 7), gridspec_kw={"width_ratios": [0.8, 1.2]})
-gdf.plot(column="turnout_pct", cmap="Blues", edgecolor="#555555", linewidth=0.4, ax=ax_map, legend=True,
+gdf.plot(column="turnout_pct", cmap="Blues", ax=ax_map, legend=True, **RIDING_LINES,
          legend_kwds={"label": "Turnout (%)", "orientation": "horizontal", "shrink": 0.7, "pad": 0.02})
+outlines.boundary.plot(ax=ax_map, **REGION_LINES)
 ax_map.set_title("Turnout by riding")
 ax_map.set_axis_off()
 
