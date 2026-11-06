@@ -39,3 +39,7 @@ Equalization and daylight saving time were voted on 18 October 2021. The correct
 `data/01-raw_data/polls_separation.csv` is a snapshot of <https://338canada.com/alberta/polls-indy.htm> taken 1 November 2026. Question wording is not the same across firms. Where a poll asked both a general independence question and the referendum wording, 338Canada shows the referendum wording. Some Léger questions included joining the United States, and that response is folded into the separation share.
 
 Éric Grenier's campaign average is a separate aggregate, not a row in the file: <https://www.thewrit.ca/p/alberta-referendum-poll-tracker>.
+
+## Electoral division boundaries
+
+`data/01-raw_data/ab_electoral_divisions_2017.geojson` was queried on 6 November 2026 from the Government of Alberta layer "Provincial Electoral Division - Current 2017" (<https://geospatial.alberta.ca/titan/rest/services/boundary/goa_administrative_area/MapServer/3>), 87 features, requested in EPSG:4326 with `maxAllowableOffset=0.002` degrees, so boundaries are simplified. Licence: Open Government Licence - Alberta. One division is named Calgary-McCall in this file and Calgary-Bhullar-McCall in the results, so the two are joined by division number.

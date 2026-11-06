@@ -34,12 +34,12 @@ python scripts/06-spatial_analysis.py
 
 ## Spatial analysis
 
-`scripts/06-spatial_analysis.py` computes Global Moran's I (permutation p-value), descriptive LISA quadrants, and a regional summary for question 10. It was adapted from a collaborator's Colab notebook. Differences from the notebook:
+`scripts/06-spatial_analysis.py` computes Global Moran's I (permutation p-value, with k-nearest-neighbour and queen-contiguity weights), descriptive LISA quadrants, and a regional summary for question 10. `notebooks/06-spatial_analysis.ipynb` adds choropleth maps with Calgary and Edmonton insets and a ranked bar chart. Both were adapted from a collaborator's Colab notebook. Differences from that notebook:
 
 - Votes come from `ed_results_2026.csv`, not pasted values.
-- Locations are approximate riding centres in `data/01-raw_data/riding_centroids.csv` (region labels and coordinates carried over from the notebook, not independently verified). The notebook's Voronoi polygons were dropped because they are not real boundaries.
+- Boundaries are the 2017 electoral divisions from the Government of Alberta (`data/01-raw_data/ab_electoral_divisions_2017.geojson`, simplified), replacing the notebook's Voronoi polygons and approximate points. Divisions are joined to results by division number.
+- Region labels (`data/01-raw_data/ed_regions.csv`) were carried over from the notebook and not independently verified.
 - The notebook's OLS/SAR regression was dropped: its covariates (oil and gas share, "Wildrose baseline", migration) were random numbers. Add real covariates before fitting one.
-- Distances scale longitude by cos(latitude), so Moran's I is 0.65 here against the notebook's 0.688.
 
 ## Statement on LLM usage
 

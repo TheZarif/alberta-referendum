@@ -6,13 +6,14 @@
 # Contact: https://github.com/TheZarif
 # License: MIT
 # Pre-requisites:
-#   - pandas, numpy and matplotlib must be installed
+#   - pandas, numpy, matplotlib and geopandas must be installed
 #   - scripts/03-clean_data.py must have been run
-#   - data/01-raw_data/riding_centroids.csv must exist
+#   - data/01-raw_data/ab_electoral_divisions_2017.geojson and
+#     data/01-raw_data/ed_regions.csv must exist
 # Notes:
-#   - Locations are approximate riding centres, not boundaries. Moran's I
-#     and the neighbour weights depend on them, so treat results as
-#     provisional until the Elections Alberta boundary file is used.
+#   - Boundaries are the 2017 Government of Alberta electoral divisions
+#     (simplified). Region labels in ed_regions.csv came from a collaborator
+#     notebook and are not independently verified.
 #   - There is no regression. The notebook this came from used randomly
 #     generated covariates, which were dropped. Add real covariates before
 #     fitting any spatial lag model.
@@ -31,6 +32,7 @@ os.environ.setdefault(
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import geopandas as gpd
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -64,12 +66,24 @@ q10 = results[results["question_number"] == 10].copy()
 q10["total"] = q10["choice_1_votes"] + q10["choice_2_votes"]
 q10["option2_pct"] = 100 * q10["choice_2_votes"] / q10["total"]
 
-centroids = pd.read_csv(RAW / "riding_centroids.csv", dtype={"ed_code": str})
-df = q10.merge(centroids[["ed_code", "region", "lat", "lon"]], on="ed_code", how="left")
+regions = pd.read_csv(RAW / "ed_regions.csv", dtype={"ed_code": str})[["ed_code", "region"]]
+shapes = gpd.read_file(RAW / "ab_electoral_divisions_2017.geojson")
+shapes["ed_code"] = shapes["EDNUMBER"].astype(int).map("{:02d}".format)
 
-assert len(df) == 87 and df["lat"].notna().all()
-assert df["choice_1_votes"].sum() == EXPECTED_2026[10]["choice_1"]
-assert df["choice_2_votes"].sum() == EXPECTED_2026[10]["choice_2"]
+gdf = (shapes[["ed_code", "geometry"]].merge(q10, on="ed_code", how="right")
+       .merge(regions, on="ed_code", how="left"))
+gdf = gpd.GeoDataFrame(gdf, geometry="geometry", crs=shapes.crs)
+
+assert len(gdf) == 87 and gdf.geometry.notna().all() and gdf["region"].notna().all()
+assert gdf["choice_1_votes"].sum() == EXPECTED_2026[10]["choice_1"]
+assert gdf["choice_2_votes"].sum() == EXPECTED_2026[10]["choice_2"]
+
+# Centroids in NAD83 / Alberta 10-TM Forest (metres); lon/lat for plotting
+metric = gdf.to_crs(3400)
+gdf["x"], gdf["y"] = metric.centroid.x, metric.centroid.y
+cent = metric.centroid.to_crs(4326)
+gdf["lon"], gdf["lat"] = cent.x, cent.y
+df = pd.DataFrame(gdf.drop(columns="geometry"))
 
 y = df["option2_pct"].to_numpy()
 print(f"Option 2 share, provincial: {100 * df['choice_2_votes'].sum() / df['total'].sum():.2f}%")
@@ -78,17 +92,23 @@ print(df.loc[y > 50, ["ed_name", "option2_pct"]].to_string(index=False))
 
 
 #### Spatial weights ####
-def knn_weights(coords: np.ndarray, k: int) -> np.ndarray:
-    """Row-standardised k-nearest-neighbour weights. Distance is planar in
-    degrees with longitude scaled by cos(latitude)."""
-    scaled = coords.copy()
-    scaled[:, 0] *= np.cos(np.radians(coords[:, 1].mean()))
-    d = np.linalg.norm(scaled[:, None, :] - scaled[None, :, :], axis=2)
+def knn_weights(xy: np.ndarray, k: int) -> np.ndarray:
+    """Row-standardised k-nearest-neighbour weights on projected centroids."""
+    d = np.linalg.norm(xy[:, None, :] - xy[None, :, :], axis=2)
     np.fill_diagonal(d, np.inf)
     w = np.zeros_like(d)
-    nearest = np.argsort(d, axis=1)[:, :k]
-    for i, cols in enumerate(nearest):
+    for i, cols in enumerate(np.argsort(d, axis=1)[:, :k]):
         w[i, cols] = 1.0
+    return w / w.sum(axis=1, keepdims=True)
+
+
+def queen_weights(geoms: gpd.GeoSeries, tol: float = 500) -> np.ndarray:
+    """Contiguity weights: divisions within tol metres count as neighbours,
+    which absorbs small gaps left by boundary simplification."""
+    buf = geoms.buffer(tol)
+    w = np.array([[float(i != j and buf.iloc[i].intersects(geoms.iloc[j]))
+                   for j in range(len(geoms))] for i in range(len(geoms))])
+    assert (w.sum(axis=1) > 0).all(), "a division has no neighbours"
     return w / w.sum(axis=1, keepdims=True)
 
 
@@ -97,7 +117,7 @@ def morans_i(values: np.ndarray, w: np.ndarray) -> float:
     return (len(values) / w.sum()) * (dev @ w @ dev) / (dev @ dev)
 
 
-coords = df[["lon", "lat"]].to_numpy()
+coords = df[["x", "y"]].to_numpy()
 W = knn_weights(coords, K_NEIGHBOURS)
 
 
@@ -109,9 +129,10 @@ p_value = (1 + np.sum(i_perm >= i_obs)) / (N_PERMUTATIONS + 1)
 print(f"\nGlobal Moran's I (k={K_NEIGHBOURS}): {i_obs:.4f}, "
       f"pseudo p = {p_value:.4f} ({N_PERMUTATIONS} permutations)")
 
-# Sensitivity to k
+# Sensitivity to the weights
 for k in (3, 5, 7, 10):
-    print(f"  k={k:>2}: I = {morans_i(y, knn_weights(coords, k)):.4f}")
+    print(f"  k={k:>2} nearest: I = {morans_i(y, knn_weights(coords, k)):.4f}")
+print(f"  queen contiguity: I = {morans_i(y, queen_weights(metric.geometry)):.4f}")
 
 
 #### LISA quadrants (descriptive; no local significance test) ####
@@ -141,27 +162,23 @@ print(summary.to_string())
 SKETCHES.mkdir(parents=True, exist_ok=True)
 
 fig, ax = plt.subplots(figsize=(7, 9))
-sc = ax.scatter(df["lon"], df["lat"], c=df["option2_pct"], cmap="YlOrRd",
-                s=df["electors"] / 250, edgecolor="#333333", linewidth=0.5)
-fig.colorbar(sc, ax=ax, orientation="horizontal", shrink=0.7, pad=0.08,
-             label="Question 10, Option 2 share (%)")
-ax.set_title("Question 10 by electoral division (approximate centres)")
-ax.set_xlabel("Longitude")
-ax.set_ylabel("Latitude")
-ax.set_aspect(1 / np.cos(np.radians(df["lat"].mean())))
+gdf.plot(column="option2_pct", cmap="YlOrRd", edgecolor="#333333", linewidth=0.4, legend=True, ax=ax,
+         legend_kwds={"label": "Question 10, Option 2 share (%)", "orientation": "horizontal",
+                      "shrink": 0.7, "pad": 0.05})
+ax.set_title("Question 10 by electoral division")
 fig.tight_layout()
-fig.savefig(SKETCHES / "q10_map_points.png", dpi=150)
+fig.savefig(SKETCHES / "q10_map.png", dpi=150)
 plt.close(fig)
 
 fig, (ax_map, ax_sc) = plt.subplots(1, 2, figsize=(13, 7))
 for name, colour in LISA_COLOURS.items():
     sub = df[df["lisa"] == name]
-    ax_map.scatter(sub["lon"], sub["lat"], c=colour, s=60, edgecolor="#333333",
-                   label=f"{name} (n={len(sub)})")
+    if len(sub):
+        gdf[df["lisa"] == name].plot(color=colour, edgecolor="#333333", linewidth=0.4, ax=ax_map)
+    ax_map.scatter([], [], c=colour, label=f"{name} (n={len(sub)})")
     ax_sc.scatter(sub["z"], sub["lag"], c=colour, s=45, edgecolor="#333333")
 ax_map.legend(loc="lower left", fontsize=8)
 ax_map.set_title("LISA quadrants")
-ax_map.set_aspect(1 / np.cos(np.radians(df["lat"].mean())))
 xs = np.linspace(z.min(), z.max(), 20)
 ax_sc.plot(xs, i_obs * xs, color="black", label=f"slope = I = {i_obs:.3f}")
 ax_sc.axhline(0, color="grey", linestyle="--")
