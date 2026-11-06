@@ -10,7 +10,7 @@ Remote: <https://github.com/TheZarif/alberta-referendum>
 - `data/01-raw_data` contains the Elections Alberta workbooks and the 338Canada poll snapshot, as obtained.
 - `data/02-analysis_data` contains the cleaned datasets.
 - `other` contains source notes, LLM usage, saved sketches, and `collaborator/` (the original Colab notebook behind script 06, kept for reference only).
-- `notebooks` contains executed Jupyter notebooks, with outputs saved. `06-spatial_analysis.ipynb` mirrors `scripts/06-spatial_analysis.py`.
+- `notebooks` contains executed Jupyter notebooks, with outputs saved. `06-spatial_analysis.ipynb` extends `scripts/06-spatial_analysis.py` with schematic choropleth maps (needs geopandas).
 - `scripts` contains the Python scripts, run in number order.
 
 `paper/` and `models/` from the starter are not included. There is no paper and no fitted model yet.
