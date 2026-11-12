@@ -1,6 +1,6 @@
 #### Preamble ####
-# Purpose: Shared loading and spatial statistics for the question 10 spatial
-#   analysis, used by scripts/06-spatial_analysis.py and
+# Purpose: Shared loading and spatial statistics for the spatial analysis of
+#   the 2026 referendum, used by scripts/06-spatial_analysis.py and
 #   notebooks/06-spatial_analysis.ipynb.
 # Author: Joseph and TheZarif
 # Date: 6 November 2026
@@ -74,6 +74,51 @@ def load_q10() -> gpd.GeoDataFrame:
     lonlat = metric.centroid.to_crs(4326)
     gdf["lon"], gdf["lat"] = lonlat.x, lonlat.y
     return gdf.sort_values("ed_code").reset_index(drop=True)
+
+
+# Short labels for charts. "Support" is Yes for questions 1 to 9 and
+# Option 2 (start the separation-referendum process) for question 10.
+QUESTION_LABELS = {
+    1: "Q1 Immigration control",
+    2: "Q2 Program eligibility",
+    3: "Q3 Residency wait",
+    4: "Q4 Health/education fee",
+    5: "Q5 Citizenship to vote",
+    6: "Q6 Provinces pick judges",
+    7: "Q7 Abolish Senate",
+    8: "Q8 Opt out with funding",
+    9: "Q9 Provincial paramountcy",
+    10: "Q10 Separation process",
+}
+
+
+def load_support() -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Support share for every question in every division.
+
+    Returns (support, votes). support has one row per division (ed_code)
+    and one column per question number, holding the support share of valid
+    votes in percent: Yes (choice 1) for questions 1 to 9 and Option 2
+    (choice 2) for question 10. votes has the matching support and total
+    valid vote counts in long form, for province and region totals.
+    """
+    results = pd.read_csv(ANALYSIS / "ed_results_2026.csv", dtype={"ed_code": str})
+    results["total"] = results["choice_1_votes"] + results["choice_2_votes"]
+    is_q10 = results["question_number"] == 10
+    results["support_votes"] = np.where(is_q10, results["choice_2_votes"], results["choice_1_votes"])
+
+    for q, sub in results.groupby("question_number"):
+        assert len(sub) == 87, f"question {q}: expected 87 divisions"
+        # The workbooks match the news release to within a few votes, except
+        # question 7 (about 100 votes; see other/sources.md).
+        for col, key in (("choice_1_votes", "choice_1"), ("choice_2_votes", "choice_2")):
+            expected = EXPECTED_2026[q][key]
+            assert abs(sub[col].sum() - expected) <= 0.0002 * expected, f"question {q}: {col} total"
+
+    results["support_pct"] = 100 * results["support_votes"] / results["total"]
+    support = results.pivot(index="ed_code", columns="question_number", values="support_pct")
+    support.columns.name = None
+    votes = results[["ed_code", "question_number", "support_votes", "total"]]
+    return support, votes
 
 
 def region_outlines(gdf: gpd.GeoDataFrame, gap_m: float = 300, min_km2: float = 10) -> gpd.GeoSeries:

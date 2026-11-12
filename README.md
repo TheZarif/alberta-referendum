@@ -34,14 +34,14 @@ python scripts/06-spatial_analysis.py
 
 ## Spatial analysis
 
-The spatial analysis of question 10 asks where Option 2 (start the process toward a binding separation referendum) was strongest, whether support is geographically clustered, whether that clustering is more than the city-versus-country divide, and whether turnout mattered.
+The spatial analysis has two parts. Part 1 asks where question 10's Option 2 (start the process toward a binding separation referendum) was strongest, whether support is geographically clustered, whether that clustering is more than the city-versus-country divide, and whether turnout mattered. Part 2 compares all ten questions: how each did by riding and region, whether they share one geography (they do, almost exactly), and which ridings voted differently on question 10 than their other answers would predict.
 
 - `notebooks/06-spatial_analysis.html` is the version to read: a self-contained web page with captions written for non-programmers. The code boxes can be collapsed.
 - `notebooks/06-spatial_analysis.ipynb` and `notebooks/06-spatial_analysis.qmd` are the same analysis as a Jupyter notebook and a Quarto document.
 - `scripts/06-spatial_analysis.py` prints the key statistics and saves three figures to `other/sketches/`.
 - `scripts/spatial.py` holds the loading and statistics code that the script and notebooks share.
 
-Methods: Global Moran's I with shared-border (queen) neighbours and a 9,999-permutation test, checked against 3 to 10 nearest neighbours. Moran's I is computed again after removing each region's average. Local Moran's I (LISA) uses conditional-permutation p-values. The figure captions are computed from the results, so they update if the data change.
+Methods: "support" is the Yes share for questions 1 to 9 and the Option 2 share for question 10. Global Moran's I with shared-border (queen) neighbours and a 9,999-permutation test, checked against 3 to 10 nearest neighbours. Moran's I is computed again after removing each region's average. Local Moran's I (LISA) uses conditional-permutation p-values. The figure captions are computed from the results, so they update if the data change.
 
 To edit the notebooks, change `notebooks/build_06_spatial_analysis.py`, then regenerate, run and render (needs [Quarto](https://quarto.org)):
 

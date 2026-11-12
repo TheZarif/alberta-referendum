@@ -1,7 +1,8 @@
 #### Preamble ####
-# Purpose: Spatial analysis of the question 10 vote by electoral division:
-#   Global Moran's I, region-adjusted Moran's I, local Moran's I (LISA) with
-#   significance, and regional summaries. The notebook
+# Purpose: Spatial analysis of the 2026 referendum by electoral division.
+#   For question 10: Global Moran's I, region-adjusted Moran's I, local
+#   Moran's I (LISA) with significance, and regional summaries. For all ten
+#   questions: support, clustering and how closely the questions agree. The notebook
 #   notebooks/06-spatial_analysis.ipynb (and .qmd) has the full write-up.
 # Author: Joseph and TheZarif (adapted from a collaborator notebook)
 # Date: 6 November 2026
@@ -39,8 +40,8 @@ import numpy as np
 import pandas as pd
 
 from common import SKETCHES
-from spatial import (LISA_COLOURS, REGION_COLOURS, REGION_ORDER, knn_weights, load_q10,
-                     local_moran, moran_test, morans_i, queen_weights)
+from spatial import (LISA_COLOURS, QUESTION_LABELS, REGION_COLOURS, REGION_ORDER, knn_weights,
+                     load_q10, load_support, local_moran, moran_test, morans_i, queen_weights)
 
 N_PERMUTATIONS = 9999
 ALPHA = 0.05
@@ -89,6 +90,31 @@ summary = gdf.groupby("region").agg(
 summary["option2_pct"] = 100 * summary["option2_votes"] / summary["valid_votes"]
 print("\nBy region:")
 print(summary.round(1).to_string())
+
+
+#### All ten questions ####
+# Support is Yes for questions 1 to 9 and Option 2 for question 10.
+support, votes = load_support()
+support = support.loc[gdf["ed_code"]].reset_index(drop=True)
+prov = votes.groupby("question_number")[["support_votes", "total"]].sum()
+regions = gdf["region"].to_numpy()
+rows = []
+for q in support.columns:
+    yq = support[q].to_numpy()
+    iq, pq, _ = moran_test(yq, W, N_PERMUTATIONS)
+    rq = yq - pd.Series(yq).groupby(regions).transform("mean").to_numpy()
+    irq, prq, _ = moran_test(rq, W, N_PERMUTATIONS)
+    rows.append({"question": QUESTION_LABELS[q],
+                 "support_pct": 100 * prov.loc[q, "support_votes"] / prov.loc[q, "total"],
+                 "ridings_majority": int((yq > 50).sum()),
+                 "morans_i": iq, "p": pq, "morans_i_within_regions": irq, "p_within": prq})
+print("\nAll ten questions (support = Yes, or Option 2 for question 10):")
+print(pd.DataFrame(rows).set_index("question").round(4).to_string())
+
+corr = support.corr().to_numpy()
+eig = np.linalg.eigvalsh(corr)
+print(f"Lowest correlation between two questions across ridings: {corr[~np.eye(len(corr), dtype=bool)].min():.3f}")
+print(f"Share of riding differences captured by one shared pattern: {100 * eig[-1] / eig.sum():.1f}%")
 
 
 #### Figures ####

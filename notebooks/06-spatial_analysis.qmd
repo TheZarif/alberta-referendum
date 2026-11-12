@@ -1,8 +1,8 @@
 ---
-title: "Where did Albertans vote for a separation referendum?"
-subtitle: "A spatial look at Question 10 of the 19 October 2026 Alberta referendum"
+title: "The geography of Alberta's 2026 referendum"
+subtitle: "Where support for a separation referendum, and for the other nine questions, was strongest"
 author: "Joseph and Zarif"
-date: "2026-11-06"
+date: "2026-11-12"
 format:
   html:
     toc: true
@@ -29,7 +29,7 @@ Adapted from a collaborator's Colab notebook. The command-line version of the sa
 
 Voters chose **Option 1** (remain a province) or **Option 2** (start the legal process toward a binding separation referendum). The question was not itself binding. Throughout, **"Option 2 share"** means Option 2 votes as a percentage of valid Option 1 + Option 2 votes in a riding. Declined and rejected ballots are left out.
 
-**What this notebook asks.**
+**What this notebook asks.** Part 1 is about Question 10:
 
 1. Where was Option 2 strongest and weakest? (sections 2 to 4)
 2. Is support geographically clustered, more than chance would produce? (section 5)
@@ -37,7 +37,15 @@ Voters chose **Option 1** (remain a province) or **Option 2** (start the legal p
 4. Where exactly are the clusters? (section 7)
 5. Did ridings with higher turnout vote differently? (section 8)
 
-The findings are summarised in section 9. Technical terms are explained in the glossary at the end.
+Part 2 brings in the other nine questions on the same ballot:
+
+6. How did each question do, and how much did ridings disagree? (sections 9 to 11)
+7. Does the same geography appear on every question? (section 12)
+8. Which ridings voted differently on Question 10 than their other answers would suggest? (section 13)
+
+The findings are summarised in section 14. Technical terms are explained in the glossary at the end.
+
+# Part 1: Question 10
 
 ## 0. Setup
 Loads the tools and settings the rest of the notebook uses. Nothing to read here.
@@ -422,7 +430,262 @@ Option 2 support.""")
 rho_reg.to_frame()
 ```
 
-## 9. Summary of findings
+# Part 2: All ten questions
+
+Question 10 was one of ten questions on the same ballot. Questions 1 to 5 were about immigration and voting rules; questions 6 to 9 asked whether Alberta should work with other provinces to change the Constitution. Part 2 asks whether the same geography shows up on every question, and where Question 10 broke from the rest.
+
+**"Support" in Part 2** means the Yes share of valid votes for questions 1 to 9, and the Option 2 share for Question 10. In every case it is the side asking for more provincial power or for change, so the questions can be compared directly. Short labels such as "Q7 Abolish Senate" are used in charts; the full wording is in the first table.
+
+## 9. The ten questions
+
+```{python}
+from common import ANALYSIS
+from matplotlib.colors import TwoSlopeNorm
+from spatial import QUESTION_LABELS, load_support
+
+support, votes = load_support()
+support = support.loc[gdf["ed_code"]].reset_index(drop=True)   # same riding order as the maps
+QS = list(support.columns)
+
+prov = votes.groupby("question_number")[["support_votes", "total"]].sum()
+prov_support = 100 * prov["support_votes"] / prov["total"]
+wording = (pd.read_csv(ANALYSIS / "ed_results_2026.csv").groupby("question_number")["question_text"].first())
+
+overview = pd.DataFrame({
+    "Question": [QUESTION_LABELS[q] for q in QS],
+    "Wording": [wording[q] for q in QS],
+    "Support, province (%)": [round(prov_support[q], 1) for q in QS],
+    "Majority support?": ["Yes" if prov_support[q] > 50 else "No" for q in QS],
+    "Ridings with majority support": [int((support[q] > 50).sum()) for q in QS],
+    "Lowest riding (%)": [round(support[q].min(), 1) for q in QS],
+    "Highest riding (%)": [round(support[q].max(), 1) for q in QS],
+}).set_index("Question")
+
+passed = [q for q in QS if prov_support[q] > 50]
+note(f"""**What it shows.** {len(passed)} of the 10 questions won majority support province-wide
+({', '.join(f'Q{q}' for q in passed)}): the immigration and voting questions. The four constitutional questions
+(Q6 to Q9) and Question 10 did not. Support ranged from {pct(prov_support.max())} on
+{QUESTION_LABELS[prov_support.idxmax()]} to {pct(prov_support.min())} on {QUESTION_LABELS[prov_support.idxmin()]},
+which was far below every other question.""")
+overview
+```
+
+**How to read the next chart.** Each row is a question and each dot is one riding, coloured by region. The black diamond is the province-wide result and the dashed line is 50%. A wide spread of dots means ridings disagreed a lot on that question.
+
+```{python}
+fig, ax = plt.subplots(figsize=(11, 6.5))
+rng_jitter = np.random.default_rng(1)
+for row, q in enumerate(QS):
+    jitter = rng_jitter.uniform(-0.25, 0.25, len(support))
+    ax.scatter(support[q], row + jitter, c=gdf["region"].map(REGION_COLOURS), s=18, edgecolor="none", alpha=0.85)
+    ax.plot(prov_support[q], row, marker="D", color="black", markersize=8)
+ax.axvline(50, color="#444444", linestyle="--", linewidth=1)
+ax.set_yticks(range(len(QS)))
+ax.set_yticklabels([QUESTION_LABELS[q] for q in QS])
+ax.invert_yaxis()
+ax.set_xlabel("Support, share of valid votes (%)")
+ax.set_title("Every riding on every question")
+handles = [mpatches.Patch(color=REGION_COLOURS[r], label=r) for r in REGION_ORDER]
+handles.append(plt.Line2D([0], [0], marker="D", color="black", linestyle="none", label="Province"))
+ax.legend(handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.1), ncol=6, frameon=False)
+ax.grid(axis="x", linestyle="--", alpha=0.4)
+plt.show()
+
+spread = support.max() - support.min()
+maj = (support > 50).sum()
+note(f"""**What it shows.** On every question, ridings disagreed widely: the gap between the lowest and highest
+riding ranged from {spread.min():.0f} to {spread.max():.0f} percentage points. On every question the city ridings
+(blue) sit to the left and the North and Central ridings (orange and red) to the right. Questions 1 to 5 had
+majority support in {maj[[1, 2, 3, 4, 5]].min()} to {maj[[1, 2, 3, 4, 5]].max()} of the 87 ridings, questions 6 to 9 in
+{maj[[6, 7, 8, 9]].min()} to {maj[[6, 7, 8, 9]].max()}, and Question 10 in only {maj[10]}: it shifts the whole pattern
+far to the left.""")
+```
+
+## 10. Ten maps
+**How to read it.** Each small map is one question. Green means majority support, brown means majority against, and pale means close to 50-50. All ten maps use the same colour scale, so colours can be compared across maps. City ridings are too small to see at this size; sections 9 and 11 show them.
+
+```{python}
+SUPPORT_NORM = TwoSlopeNorm(vmin=10, vcenter=50, vmax=90)
+SUPPORT_CMAP = "BrBG"
+
+fig, axes = plt.subplots(2, 5, figsize=(17, 9.5))
+for ax, q in zip(axes.flat, QS):
+    gdf.assign(s=support[q].to_numpy()).plot(column="s", cmap=SUPPORT_CMAP, norm=SUPPORT_NORM, ax=ax,
+                                             edgecolor="white", linewidth=0.15)
+    outlines.boundary.plot(ax=ax, color="#222222", linewidth=0.5)
+    ax.set_title(f"{QUESTION_LABELS[q]}\nprovince: {prov_support[q]:.1f}%", fontsize=10)
+    ax.set_axis_off()
+sm = plt.cm.ScalarMappable(norm=SUPPORT_NORM, cmap=SUPPORT_CMAP)
+fig.colorbar(sm, ax=axes, orientation="horizontal", shrink=0.4, pad=0.03, label="Support, share of valid votes (%)")
+plt.show()
+
+note("""**What it shows.** The same picture repeats on every map: the most support in the north and across rural
+central and eastern Alberta, the least in Calgary, Edmonton and along the mountains west of Calgary. What changes
+from question to question is mostly how much of the province is green, not where the green is.""")
+```
+
+## 11. Support by region
+**How to read it.** Each cell is the share of valid votes for support in one region on one question, counting every vote in the region (so large ridings count more). Green is majority support, brown is majority against.
+
+```{python}
+vr = votes.merge(gdf[["ed_code", "region"]], on="ed_code")
+reg = vr.groupby(["region", "question_number"])[["support_votes", "total"]].sum()
+region_support = (100 * reg["support_votes"] / reg["total"]).unstack().reindex(REGION_ORDER)
+
+fig, ax = plt.subplots(figsize=(13, 3.8))
+im = ax.imshow(region_support.to_numpy(), cmap=SUPPORT_CMAP, norm=SUPPORT_NORM, aspect="auto")
+for i in range(region_support.shape[0]):
+    for j in range(region_support.shape[1]):
+        v = region_support.iat[i, j]
+        ax.text(j, i, f"{v:.0f}", ha="center", va="center", fontsize=10,
+                color="white" if abs(v - 50) > 28 else "black")
+ax.set_xticks(range(len(QS)))
+ax.set_xticklabels([QUESTION_LABELS[q] for q in QS], rotation=35, ha="right")
+ax.set_yticks(range(len(REGION_ORDER)))
+ax.set_yticklabels(REGION_ORDER)
+ax.spines[:].set_visible(False)
+fig.colorbar(im, ax=ax, shrink=0.8, label="Support (%)")
+ax.set_title("Support by region and question (%)")
+plt.show()
+
+top = region_support.idxmax().unique()
+bottom = region_support.idxmin().unique()
+gap = region_support.max() - region_support.min()
+cal_minus_edm = region_support.loc["Calgary"] - region_support.loc["Edmonton"]
+order_text = (f"The {top[0]} gave the most support on every question and {bottom[0]} the least."
+              if len(top) == 1 and len(bottom) == 1 else
+              "The most and least supportive regions vary a little between questions.")
+note(f"""**What it shows.** The order of the regions barely changes. {order_text} The gap between the most and
+least supportive region was {gap.min():.0f} to {gap.max():.0f} percentage points. Calgary was more supportive
+than Edmonton on every question, by {cal_minus_edm.min():.0f} to {cal_minus_edm.max():.0f} points. Read across
+a row and the drop from questions 1 to 5, to 6 to 9, to Question 10 is similar in every region.""")
+```
+
+## 12. One geography for every question
+Two checks on how alike the ten questions are.
+
+- **Clustering.** Moran's I (section 5) for each question, before and after removing regional averages (section 6).
+- **Agreement between questions.** The correlation between two questions' results across ridings: 1 means the ridings that were most supportive on one question were also, in the same proportion, the most supportive on the other.
+
+**How to read the chart.** Each line is one riding, coloured by region. Its height shows how far the riding was above or below the province-wide result on each question. If ridings kept the same position on every question, the lines would run roughly flat and parallel.
+
+```{python}
+rows = []
+for q in QS:
+    yq = support[q].to_numpy()
+    iq, pq, _ = moran_test(yq, W, N_PERMUTATIONS)
+    rq = yq - pd.Series(yq).groupby(gdf["region"].to_numpy()).transform("mean").to_numpy()
+    irq, prq, _ = moran_test(rq, W, N_PERMUTATIONS)
+    rows.append({"Question": QUESTION_LABELS[q], "Moran's I": round(iq, 2), "p": round(pq, 4),
+                 "Moran's I within regions": round(irq, 2), "p (within regions)": round(prq, 4)})
+clustering = pd.DataFrame(rows).set_index("Question")
+
+corr = support.corr()
+off_diag = corr.where(~np.eye(len(QS), dtype=bool)).stack()
+eig = np.linalg.eigvalsh(corr.to_numpy())
+first_pattern = 100 * eig[-1] / eig.sum()
+
+fig, ax = plt.subplots(figsize=(12, 6))
+rel = support.sub(prov_support, axis=1)
+for region in REGION_ORDER:
+    for _, row in rel[gdf["region"].to_numpy() == region].iterrows():
+        ax.plot(range(len(QS)), row.to_numpy(), color=REGION_COLOURS[region], alpha=0.5, linewidth=0.9)
+ax.axhline(0, color="black", linewidth=1)
+ax.set_xticks(range(len(QS)))
+ax.set_xticklabels([QUESTION_LABELS[q] for q in QS], rotation=35, ha="right")
+ax.set_ylabel("Riding minus province (percentage points)")
+ax.set_title("Ridings keep their place from question to question")
+ax.legend(handles=[mpatches.Patch(color=REGION_COLOURS[r], label=r) for r in REGION_ORDER],
+          loc="upper center", bbox_to_anchor=(0.5, -0.32), ncol=5, frameon=False)
+ax.grid(axis="y", linestyle="--", alpha=0.4)
+plt.show()
+
+note(f"""**What it shows.** Every question is strongly clustered (Moran's I from {clustering["Moran's I"].min():.2f} to
+{clustering["Moran's I"].max():.2f}, all p ≤ {clustering['p'].max():.4f}), and on every question most of that
+clustering is the regional divide: within regions it falls to {clustering["Moran's I within regions"].min():.2f}
+to {clustering["Moran's I within regions"].max():.2f}.
+
+The questions are almost interchangeable as maps. The correlation between any two questions across ridings is
+between {off_diag.min():.2f} and {off_diag.max():.2f}, and a single shared pattern accounts for
+{first_pattern:.0f}% of the differences between ridings across all ten questions. In plain terms: if you know how
+a riding voted on one question, you can predict very closely how it voted on the others. The lines are not
+perfectly parallel, though. At Question 10 they bunch closer together: with support low everywhere, ridings
+differ by fewer points, and a few ridings move against the trend. Section 13 looks at those.""")
+clustering
+```
+
+## 13. Where Question 10 broke from the rest
+Because the questions move together so closely, the interesting ridings are the ones that did **not** follow the pattern on Question 10. For each riding, we take its average support on questions 1 to 9 and see what Question 10 result that would predict, using the curve that best fits all 87 ridings. A riding above the curve gave Question 10 **more** support than its other answers would suggest; below the curve, **less**. The numbered ridings on the chart are the four furthest above and below, listed in the table under it.
+
+**Caution.** This compares ridings, not people. A riding can sit above the curve for many reasons, including who turned out or who skipped the question.
+
+```{python}
+others = support[[q for q in QS if q != 10]].mean(axis=1).to_numpy()
+q10 = support[10].to_numpy()
+coef = np.polyfit(others, q10, 2)
+fitted = np.polyval(coef, others)
+gdf["q10_gap"] = q10 - fitted
+r2 = 1 - np.sum((q10 - fitted) ** 2) / np.sum((q10 - q10.mean()) ** 2)
+i_gap, p_gap, _ = moran_test(gdf["q10_gap"].to_numpy(), W, N_PERMUTATIONS)
+
+n_label = 4
+above = gdf.nlargest(n_label, "q10_gap")
+below = gdf.nsmallest(n_label, "q10_gap")
+
+fig, ax = plt.subplots(figsize=(11, 7))
+ax.scatter(others, q10, c=gdf["region"].map(REGION_COLOURS), s=45, edgecolor="#333333", linewidth=0.5)
+xs = np.linspace(others.min(), others.max(), 100)
+ax.plot(xs, np.polyval(coef, xs), color="black", linewidth=1.5, label="Best-fitting curve")
+labelled = pd.concat([above, below])
+for k, (i, r) in enumerate(labelled.iterrows(), start=1):
+    ax.annotate(str(k), (others[i], q10[i]), xytext=(9 if k % 2 else -9, 11 if r["q10_gap"] > 0 else -13), textcoords="offset points",
+                ha="center", va="center", fontsize=8, fontweight="bold",
+                bbox=dict(boxstyle="circle,pad=0.2", fc="white", ec="#333333", lw=0.6))
+ax.set_xlabel("Average support on questions 1 to 9 (%)")
+ax.set_ylabel("Question 10, Option 2 share (%)")
+ax.set_title("Question 10 against the other nine questions")
+handles = [mpatches.Patch(color=REGION_COLOURS[r], label=r) for r in REGION_ORDER]
+handles.append(plt.Line2D([0], [0], color="black", label="Best-fitting curve"))
+ax.legend(handles=handles, loc="upper left", frameon=False)
+ax.grid(linestyle="--", alpha=0.4)
+plt.show()
+display(pd.DataFrame({"Riding": labelled["ed_name"].str.title().to_numpy(),
+                      "Region": labelled["region"].to_numpy(),
+                      "Points above (+) or below (-) the curve": labelled["q10_gap"].round(1).to_numpy()},
+                     index=pd.RangeIndex(1, len(labelled) + 1, name="Label")))
+
+GAP_NORM = TwoSlopeNorm(vmin=-10, vcenter=0, vmax=10)
+fig = plt.figure(figsize=(15, 8))
+gs = fig.add_gridspec(2, 2, width_ratios=[1.2, 1.0])
+ax_main, ax_cal, ax_edm = fig.add_subplot(gs[:, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, 1])
+for ax, sub in ((ax_main, gdf), (ax_cal, gdf[gdf["region"] == "Calgary"]), (ax_edm, gdf[gdf["region"] == "Edmonton"])):
+    sub.plot(column="q10_gap", cmap="PuOr_r", norm=GAP_NORM, ax=ax, **RIDING_LINES)
+    ax.set_axis_off()
+outlines.boundary.plot(ax=ax_main, **REGION_LINES)
+ax_main.set_title("Question 10 result compared with the riding's other answers")
+ax_cal.set_title("Calgary")
+ax_edm.set_title("Edmonton")
+sm = plt.cm.ScalarMappable(norm=GAP_NORM, cmap="PuOr_r")
+fig.colorbar(sm, ax=ax_main, orientation="horizontal", shrink=0.7, pad=0.02,
+             label="Percentage points above (orange) or below (purple) the curve")
+plt.show()
+
+gap_by_region = gdf.groupby("region")["q10_gap"].mean().reindex(REGION_ORDER)
+note(f"""**What it shows.** The curve explains {100 * r2:.0f}% of the differences in Question 10 results between
+ridings, so a riding's other answers predict its Question 10 result closely. Departures from the curve are
+small, but they are not random: they are themselves clustered on the map (Moran's I = {i_gap:.2f}, p = {p_gap:.4f}).
+
+- **More support for Question 10 than expected:** {', '.join(f"{r['ed_name'].title()} (+{r['q10_gap']:.1f})" for _, r in above.iterrows())}.
+- **Less support than expected:** {', '.join(f"{r['ed_name'].title()} ({r['q10_gap']:.1f})" for _, r in below.iterrows())}.
+- **By region**, the average gap was largest in the {gap_by_region.idxmax()} ({gap_by_region.max():+.1f} points) and
+  most negative in {gap_by_region.idxmin()} ({gap_by_region.min():+.1f} points).
+
+One reading is that some ridings backed the immigration and constitutional questions while drawing a line at
+separation, and others were more open to separation than their other answers suggest. Explaining why would need
+data on who lives in each riding, which this notebook does not have.""")
+```
+
+## 14. Summary of findings
 
 ```{python}
 note(f"""1. **Option 2 lost province-wide** with {pct(prov_share, 2)} of valid votes and won a majority in only
@@ -437,7 +700,20 @@ note(f"""1. **Option 2 lost province-wide** with {pct(prov_share, 2)} of valid v
    (I = {i_res:.2f}, p = {p_res:.3f}).
 6. **{len(hh)} ridings outside the cities form significant hotspots** and {len(ll)} city ridings form
    significant coldspots.
-7. **Turnout shows no consistent relationship** with Option 2 support (rank correlation {rho_all:.2f}).""")
+7. **Turnout shows no consistent relationship** with Option 2 support (rank correlation {rho_all:.2f}).
+
+**Part 2: all ten questions**
+
+8. **The immigration and voting questions (1 to 5) won majorities; the constitutional questions (6 to 9) and
+   Question 10 did not.** Province-wide support ran from {pct(prov_support.max())} ({QUESTION_LABELS[prov_support.idxmax()]})
+   to {pct(prov_support.min())} ({QUESTION_LABELS[prov_support.idxmin()]}).
+9. **Every question has the same geography.** Results correlate at {off_diag.min():.2f} or higher across ridings, one
+   shared pattern accounts for {first_pattern:.0f}% of the differences between ridings, and the regions line up in
+   the same order on every question.
+10. **What differs between questions is the level of support, not where it comes from.** Question 10 drew far less
+   support everywhere, but from the same places.
+11. **A few ridings broke the pattern on Question 10**, most of all {above.iloc[0]['ed_name'].title()} ({above.iloc[0]['q10_gap']:+.1f}
+   points above what its other answers predict) and {below.iloc[0]['ed_name'].title()} ({below.iloc[0]['q10_gap']:+.1f}).""")
 ```
 
 ## Limitations and next steps
@@ -446,17 +722,19 @@ note(f"""1. **Option 2 lost province-wide** with {pct(prov_share, 2)} of valid v
 - **How individuals voted.** All results are for ridings. A pattern across ridings need not hold for the people in them.
 
 **Known weaknesses.**
-- The region labels have not been checked against an official source, and sections 3, 4, 6 and 8 depend on them.
+- The region labels have not been checked against an official source, and sections 3, 4, 6, 8, 11 and 12 depend on them.
+- Part 2 compares answers across questions by riding. A riding that backed two questions did not necessarily do so through the same voters.
 - Boundary lines are simplified. This does not change which ridings border each other in any way that matters here, but the maps are not survey-grade.
 
 **Next steps.**
 - Verify the region labels, or replace them with an official grouping.
 - Add real explanatory data, for example Statistics Canada census profiles by electoral division or 2023 provincial election results, and then fit a spatial regression.
-- Repeat the analysis for the other nine questions to see whether the same geography appears.
+- Look at who lives in the ridings that broke the pattern on Question 10 (section 13).
 
 ## Glossary
 - **Riding / electoral division.** One of Alberta's 87 districts that each elect one MLA. Results are reported by riding.
 - **Option 2 share.** Option 2 votes divided by Option 1 + Option 2 votes, as a percentage. Declined and rejected ballots are excluded.
+- **Support (Part 2).** The Yes share for questions 1 to 9 and the Option 2 share for Question 10, as a percentage of valid votes.
 - **Region.** One of five groups of ridings used here: Calgary, Edmonton (city ridings only), Central, North and South.
 - **Neighbours.** Ridings that share a border. Section 5 also tries "the k nearest ridings".
 - **Moran's I.** One number summarising how alike neighbouring ridings are. About 0 means no pattern; closer to 1 means neighbours are very alike; negative means neighbours tend to differ.
@@ -464,4 +742,6 @@ note(f"""1. **Option 2 lost province-wide** with {pct(prov_share, 2)} of valid v
 - **p-value.** The share of shuffled maps that looked at least as clustered as the real one. Small values (below 0.05 here) mean the pattern is unlikely to be chance. With 9,999 shuffles, the smallest possible value is 0.0001.
 - **LISA (local Moran's I).** A version of Moran's I for each riding, used to label hotspots, coldspots and outliers.
 - **Standard units.** A value's distance from the average riding, measured in standard deviations. 0 is average; +1 is one standard deviation above.
+- **Correlation.** How closely two sets of numbers rise and fall together across ridings, from -1 (opposite) through 0 (unrelated) to 1 (move together exactly).
+- **Shared pattern.** The single combination of all ten questions that best describes how ridings differ. Its percentage says how much of the riding-to-riding differences it captures.
 - **Rank correlation (Spearman).** How consistently one measure rises as another rises, from -1 (always falls) through 0 (no relationship) to 1 (always rises).
