@@ -91,3 +91,26 @@ check(
     "Question 10 remain share is 74.95 percent of valid votes.",
     "Question 10 remain share is not 74.95 percent.",
 )
+
+
+#### General elections on the same boundaries ####
+general = pd.read_csv(ANALYSIS / "general_elections_2019_2023.csv", dtype={"ed_code": str})
+for year in (2019, 2023):
+    subset = general[general["year"] == year]
+    check(
+        subset["ed_code"].nunique() == 87
+        and set(subset["ed_code"]) == set(divisions["ed_code"]),
+        f"The {year} general election covers the same 87 divisions as the referendum.",
+        f"The {year} general election divisions do not match the referendum divisions.",
+    )
+    sums = subset.groupby("ed_code").agg(votes=("votes", "sum"), valid=("valid_ballots", "first"))
+    check(
+        (sums["votes"] == sums["valid"]).all(),
+        f"{year} candidate votes sum to valid ballots in every division.",
+        f"{year} candidate votes do not sum to valid ballots in some division.",
+    )
+    check(
+        (subset.groupby("ed_code")["party_code"].apply(lambda s: (s == "UCP").sum()) <= 1).all(),
+        f"{year} has at most one UCP candidate per division.",
+        f"{year} has more than one UCP candidate in a division.",
+    )

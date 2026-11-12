@@ -1,7 +1,529 @@
 {
-  "retrieved_at": "2026-11-01T23:41:45+00:00",
+  "retrieved_at": "2026-11-12T07:17:43+00:00",
   "source": "https://officialresults.elections.ab.ca",
   "files": [
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-01.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=01&EventId=60",
+      "bytes": 11992,
+      "sha256": "852f3b415a3c0331caf532084059717a1c399ab7b457e9329caef2487c71bcf1"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-02.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=02&EventId=60",
+      "bytes": 10964,
+      "sha256": "14620a678e9c936b731a979d8456b399004b0cdbf01673f97290dc6185fa81ba"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-03.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=03&EventId=60",
+      "bytes": 11896,
+      "sha256": "804bfabcc8d61fab4d0d50405fd8e32b61471911c65f643423ec35c931deff84"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-04.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=04&EventId=60",
+      "bytes": 12556,
+      "sha256": "c08f0a0fad41f838a548f1e9e6b5ca805540cfdc3df0d6661efdc71611500887"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-05.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=05&EventId=60",
+      "bytes": 11089,
+      "sha256": "64ae3fe4d6aabaad619a29d4609afea6f896a1c684f7eb067b1420af45c0e952"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-06.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=06&EventId=60",
+      "bytes": 11147,
+      "sha256": "312894f443bb1f4ea46ab5057f48f2eb5cf030af7e8a53018c441865609a1506"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-07.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=07&EventId=60",
+      "bytes": 11976,
+      "sha256": "95c58326b060a426f53a13b9950b58802fe30f6105e5f6c5eb171f516f359619"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-08.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=08&EventId=60",
+      "bytes": 11818,
+      "sha256": "c406929522aa519d943609bcb517d4b737843acc394f1b4f3ba7e7f451da5ea5"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-09.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=09&EventId=60",
+      "bytes": 11380,
+      "sha256": "37d9c1f666c90b979c413d3f4ddd8ece6e64a2dc42b9c79dc04960817aaa6dbe"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-10.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=10&EventId=60",
+      "bytes": 9315,
+      "sha256": "5850a78859aa72e89793cc52ee6ab27ad2896541314ace72119334149bdb8730"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-11.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=11&EventId=60",
+      "bytes": 11945,
+      "sha256": "b5c47f920cb29a730b04e73f939ebee1baf8958b929833fbf0a938ed889d6ef0"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-12.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=12&EventId=60",
+      "bytes": 10795,
+      "sha256": "a5fee62bca6303a5884f870910dadc9f4d45bc193a846d595a20c977dabfbeec"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-13.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=13&EventId=60",
+      "bytes": 12916,
+      "sha256": "d8eef5a1af00df90b012e0179789a680ed4e2938bda745e1829a240040ae7f91"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-14.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=14&EventId=60",
+      "bytes": 10617,
+      "sha256": "d625f971064bf4e43bc6f4b4d946edc799da20c9ff396fc16d3eaff87748c5f2"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-15.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=15&EventId=60",
+      "bytes": 12065,
+      "sha256": "2df12a2b4890a7cb4dd9587ca8612a2032b93c3e51c11ca36b3abae7fd3824a5"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-16.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=16&EventId=60",
+      "bytes": 9784,
+      "sha256": "7e715c87b1624e3f5d1327e4cd7dffc20bf809bfe613793d6497d5229bf18380"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-17.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=17&EventId=60",
+      "bytes": 9469,
+      "sha256": "508b501b649293864ba4a56396adecc056eb6662ad6db3562ed110a3f89c0f2c"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-18.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=18&EventId=60",
+      "bytes": 12655,
+      "sha256": "b79eef6d1e3c8da7c47882bb93b6933a244ee4bc4a826feddea1b8e44844b982"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-19.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=19&EventId=60",
+      "bytes": 9480,
+      "sha256": "ded8bb450f3803dcb2878fc794813822b609b753871644faea1999158e2ebe13"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-20.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=20&EventId=60",
+      "bytes": 9633,
+      "sha256": "f20321138a9b72bf974f0bc623e5e2dc55a619a8d783a09ca20272374d1dca0d"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-21.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=21&EventId=60",
+      "bytes": 11223,
+      "sha256": "154e2d67ad5b4775a4a76dec45071f2ba3ee7217ceb2f56f2d4d0a454bcc9046"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-22.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=22&EventId=60",
+      "bytes": 10923,
+      "sha256": "5beee5d28a347d9597b98f56ca66804b98281423d8202672038380f52c87f024"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-23.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=23&EventId=60",
+      "bytes": 10682,
+      "sha256": "a6f903becb612b31075b9864b9199527424aa3d9873c36ddf035e77fca18a163"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-24.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=24&EventId=60",
+      "bytes": 10249,
+      "sha256": "ced57e5d73617920738bd290163318cb12967cba8e83ed9fdaf1544cf8252e52"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-25.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=25&EventId=60",
+      "bytes": 12144,
+      "sha256": "0f9e5e6db714e1c005a9f388f7ff57ef729e62339f22c61fd254dc7cf0ca61c0"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-26.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=26&EventId=60",
+      "bytes": 10613,
+      "sha256": "369e3f872ec840f6babedcb7bf38e8147d6095fc102622b65bb21f04913506d2"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-27.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=27&EventId=60",
+      "bytes": 11617,
+      "sha256": "62e3d4d221a47c20e68b041aa6b4e3af1f04badc6b2d5dcb5a5b42f43161365f"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-28.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=28&EventId=60",
+      "bytes": 10454,
+      "sha256": "83721acaa205929d88ddd88dd824ae2caceb4ccc119c04a81fb27140511355d9"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-29.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=29&EventId=60",
+      "bytes": 12578,
+      "sha256": "4b7aece8e7c382f0f0b0a787b0d89101e0cdefc9f06be419413dbf3269502566"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-30.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=30&EventId=60",
+      "bytes": 10897,
+      "sha256": "2f97423833ff3ac8bde6fddbc31264a76efefe1c314bbc9fc905b1472ef82183"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-31.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=31&EventId=60",
+      "bytes": 11554,
+      "sha256": "d01c03e460aed65c22af081d5ebd94d99c8083990ccffd88b8badb58f8cce2c8"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-32.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=32&EventId=60",
+      "bytes": 10765,
+      "sha256": "08ff8f7528bcf92ab5d8895bdcd2e11b6e8db6d2c3c214e0ddb5ed3402c62a57"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-33.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=33&EventId=60",
+      "bytes": 12208,
+      "sha256": "e61cc153cb8d74d8c41555e452a616fb03e114a18a3b18299603a91fab082745"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-34.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=34&EventId=60",
+      "bytes": 11541,
+      "sha256": "e2b293260b79bec9fcc268dba269fadd51ba5c44d0e04a9b4c39ee894188634e"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-35.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=35&EventId=60",
+      "bytes": 11514,
+      "sha256": "cd061173456af7eb8d303ba592f8ba094523768abe4178bfbf173e8eb4c318e6"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-36.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=36&EventId=60",
+      "bytes": 10277,
+      "sha256": "aea8365beb9fcd5a6c39790f42279df2507b2c2d63832bf6fab2f99df5f5d9fa"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-37.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=37&EventId=60",
+      "bytes": 10906,
+      "sha256": "2a7217f3fe8034fce883c27aae3626ede003df45cdcaa8e5e5d93a373d58dc3a"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-38.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=38&EventId=60",
+      "bytes": 11950,
+      "sha256": "b0beee425317cd87fd0c3cea7b19dc9f3246d5aef8f7c1fbfae1f994afa4080d"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-39.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=39&EventId=60",
+      "bytes": 10592,
+      "sha256": "ac9436cae1cfc0f12977c9002ff050df8acd36d676b0ff78f535881da7be05d2"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-40.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=40&EventId=60",
+      "bytes": 12360,
+      "sha256": "6d94bc2dc3f95d7cd0471c1b21a7092d7642b4b1f8fde5356755d935dfa11f49"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-41.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=41&EventId=60",
+      "bytes": 11700,
+      "sha256": "9af7f17f103c5d19b63592b269654f443fe215b9e12866f5fa16ddb2a442a9ca"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-42.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=42&EventId=60",
+      "bytes": 10678,
+      "sha256": "d9802f1bdb525009410f151d7bab0c8533c18bb1bd7441dd2486d64f2bb1565a"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-43.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=43&EventId=60",
+      "bytes": 9631,
+      "sha256": "7a550effd53e6e30a01fc3d5afa86298e2d80b3a6bd10c0f002207df2bf5ea8d"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-44.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=44&EventId=60",
+      "bytes": 13346,
+      "sha256": "93bd145ffa8b81d7d1c394b49fad8aaa7a153cff2d21ac463a1f706ae1bd4c38"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-45.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=45&EventId=60",
+      "bytes": 10252,
+      "sha256": "c29a842ad17d92a0dddcacb4372d97b025c055e593f8acfd14c3bddac7391a7e"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-46.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=46&EventId=60",
+      "bytes": 11302,
+      "sha256": "662e45162ce0f4eb24ed6f0d0c5df319df90ced51c5daba97ce252fe68a9131e"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-47.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=47&EventId=60",
+      "bytes": 11933,
+      "sha256": "217bbdf498475e4897ab776b6b5b8f353b86441eeda635f0b5d8e40ae05049de"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-48.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=48&EventId=60",
+      "bytes": 11528,
+      "sha256": "c338b2c1113992b72eba1ad2896e95bec02a0e1d4aaf852da36715c5ef6c3d8d"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-49.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=49&EventId=60",
+      "bytes": 12411,
+      "sha256": "df979bba36c3b2f2458b4082f37794b5b0cb24f267b1663eec736eec13f68a7b"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-50.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=50&EventId=60",
+      "bytes": 12194,
+      "sha256": "7cb538b19a24035e3fab854ab0563af6fe4a39a4495ec360448fcb39d654320b"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-51.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=51&EventId=60",
+      "bytes": 11867,
+      "sha256": "ad93d7ab8cf471db617bf175919c92edb8f8f63e586d7e732a4c68d5a93dfa4b"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-52.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=52&EventId=60",
+      "bytes": 13218,
+      "sha256": "174fee548765c0333fd6142d677228d6efa7804a8f7e3cee646ec028b7c3e450"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-53.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=53&EventId=60",
+      "bytes": 11844,
+      "sha256": "96875396954581d4f9fecb4a9e3518bb78e430f90e87464526c453ba5ac3f9bc"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-54.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=54&EventId=60",
+      "bytes": 10244,
+      "sha256": "e6e65748108782f15ea2fb6263d2379855f2109f03fb129b7b7463236dc860e0"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-55.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=55&EventId=60",
+      "bytes": 10314,
+      "sha256": "fcbd1374d1acf0d14b3d14107f885db908e32c946513dcbac39d71cee929ab4e"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-56.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=56&EventId=60",
+      "bytes": 11712,
+      "sha256": "e17f1b3984e37f874008c27d10ce5c02fba3c41526e06a07de4474be41d1c4f4"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-57.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=57&EventId=60",
+      "bytes": 12159,
+      "sha256": "1d10888032c266a4e786cecd5c54f2783f02f0701fed7cd7a8a7c555de823472"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-58.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=58&EventId=60",
+      "bytes": 13738,
+      "sha256": "236b5f4ab33ba7e01e5f325c1d22b16834c896b7c9a7a0468933b4f714dfb2fd"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-59.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=59&EventId=60",
+      "bytes": 12800,
+      "sha256": "2d233959e8b51596410b81e0868a32f53589d7531689dbbef9ded0ecedec6167"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-60.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=60&EventId=60",
+      "bytes": 10184,
+      "sha256": "8edd17b6529f86fe9723e45bc2a178051c3a0611410d446e9938aad3295a0589"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-61.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=61&EventId=60",
+      "bytes": 8269,
+      "sha256": "146c6db24100c5c1b5386baf603600d4b255eb3b829acca2400c9f628d0ef26d"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-62.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=62&EventId=60",
+      "bytes": 13012,
+      "sha256": "0174b27fb7d04fc9e2cebe1a2b03943a5244bf009a6c95c5f0bec28ff3268b41"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-63.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=63&EventId=60",
+      "bytes": 11884,
+      "sha256": "c7d41f1af6e50f49487a50f0abe01afc762c94447d35d71dac192d2e65a1cb19"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-64.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=64&EventId=60",
+      "bytes": 11523,
+      "sha256": "a6eb4cd99027b851a753f57871f297de86c1a9246090b261c10e6f808e0e3faf"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-65.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=65&EventId=60",
+      "bytes": 10597,
+      "sha256": "56950605e934e6358fbffb60077414a3acb8e14c089abfe32ac1e7330d129da8"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-66.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=66&EventId=60",
+      "bytes": 12302,
+      "sha256": "dd466e8825272be27925e2f5fe550dc3dbaba216f8cbea8ecdb8655e66db68a1"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-67.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=67&EventId=60",
+      "bytes": 11161,
+      "sha256": "40d70a2e960acee3add89b98b0a0cb2d4de306a05e9a1428f9aaa9f5ab9ec372"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-68.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=68&EventId=60",
+      "bytes": 11541,
+      "sha256": "b6f20bd5f13e03da407227d3326aee21abdf170f0b67c226b31c567e1d5d45dc"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-69.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=69&EventId=60",
+      "bytes": 11826,
+      "sha256": "3e0338225e8371a423ef1aae4f8c50db6ace53c92f2c7373827a1cfaa425694b"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-70.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=70&EventId=60",
+      "bytes": 9428,
+      "sha256": "af76716bc5161488d59231be0dab41dca96c7ac12b4232213cd803a153eb0a27"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-71.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=71&EventId=60",
+      "bytes": 12128,
+      "sha256": "73f731a51b4934fb600c462d94905e7602337b8f15c891a67b5ed9644bf04fe4"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-72.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=72&EventId=60",
+      "bytes": 12217,
+      "sha256": "96074c60c2a5788d0d8cde8b78308207c531042c5f4a3041cbc8071cff59480a"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-73.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=73&EventId=60",
+      "bytes": 12060,
+      "sha256": "bba580d0c48c382eb50e735ac7bb30544398baefd19137d721a4169123e782dd"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-74.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=74&EventId=60",
+      "bytes": 10438,
+      "sha256": "f58564590d97afc94ec3d4d28c2140337ecaeedff6705603aa5b6998034a2207"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-75.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=75&EventId=60",
+      "bytes": 12373,
+      "sha256": "cd37a87b3165da13bf9f78d3a7a8a7a0e2a68c60f6f9f43ca42523cee42cbbdc"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-76.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=76&EventId=60",
+      "bytes": 11955,
+      "sha256": "5bd35fdec8a5edfcf346b1d7e64c35fae897912e9294cdd260f70f427310cab3"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-77.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=77&EventId=60",
+      "bytes": 10697,
+      "sha256": "3ae3a5065ceec7ff5432d900e81b529b330caf50cab4aedb59550c1707eec413"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-78.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=78&EventId=60",
+      "bytes": 11551,
+      "sha256": "22d366f645e6c83bbfafc0367765c044cd5109807b8827ddb310c45c42584923"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-79.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=79&EventId=60",
+      "bytes": 11654,
+      "sha256": "111e7e06ac68f669785da29455161b32c2672f00edd2c3726d1b9f378d94acd2"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-80.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=80&EventId=60",
+      "bytes": 12210,
+      "sha256": "76dda713747efad04a8c03a41e906c9fda46d27d03442c070b1fd6578ffbb823"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-81.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=81&EventId=60",
+      "bytes": 11741,
+      "sha256": "82294a92cb0dd261327d4c51e4ef52bad847857f7ca75e01ad2d2fe98f3d3bb1"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-82.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=82&EventId=60",
+      "bytes": 11069,
+      "sha256": "13460eea9fab9bf6cc10c9efdfa338309f98461b269437103e7443f30ff00d56"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-83.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=83&EventId=60",
+      "bytes": 12304,
+      "sha256": "6cca20d2327ed80432e6a1155ee1b6b95c2d39bb8570e7f6a22cf86315a9cd98"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-84.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=84&EventId=60",
+      "bytes": 11698,
+      "sha256": "e75f42a6d4a7ea79ff00e947c64a667345c2c8206148320dadc6d97f8aefaaa0"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-85.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=85&EventId=60",
+      "bytes": 10538,
+      "sha256": "7a17a05aba18cfb86f59764ea87d3dcd9f9ceaade36035e17d44eb0a6353186d"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-86.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=86&EventId=60",
+      "bytes": 12248,
+      "sha256": "bcd9bb4bcbdca0531a57083cb0e0fd696632d753b8aaf271185f623f2415581b"
+    },
+    {
+      "path": "data/01-raw_data/official/2019/ge/ed-87.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=87&EventId=60",
+      "bytes": 12923,
+      "sha256": "4656740d870bd25e68f8cf1b1aac40e8970c33beab1a0caeb20188e4d78fa34b"
+    },
     {
       "path": "data/01-raw_data/official/2021/daylight_saving.xlsx",
       "url": "https://officialresults.elections.ab.ca/orResultsReferendum2021.cfm?MODE=exProv&EventId=68&QUESTIONNO=2",
@@ -13,6 +535,528 @@
       "url": "https://officialresults.elections.ab.ca/orResultsReferendum2021.cfm?MODE=exProv&EventId=68&QUESTIONNO=1",
       "bytes": 17953,
       "sha256": "181ddfbfce53785beae2d552680b759fcf7febe607265b1d6e51fc70e1a00d6e"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-01.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=01&EventId=101",
+      "bytes": 7112,
+      "sha256": "fdedbecd9188b66c8eb0dc0a2a53d39f8c2cb596e83f4b3053dd7d9927d56c9a"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-02.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=02&EventId=101",
+      "bytes": 6476,
+      "sha256": "33a74536790e94fb635a71a0be2274bbf7e3c2717d17e42dd88085178aa77551"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-03.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=03&EventId=101",
+      "bytes": 6930,
+      "sha256": "f7257c88bc641d58e0968d12a70ca3ff9f9e47137273a5149fdefaf28124fa73"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-04.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=04&EventId=101",
+      "bytes": 7409,
+      "sha256": "ab615bb282759d12ad05f6a91ebc4626559f7115f9ca611a3eeb6e4a54d84930"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-05.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=05&EventId=101",
+      "bytes": 6605,
+      "sha256": "d43b2249fc4583e36f66d8ca304bed12ee626be22b76635072bd7a025d421e11"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-06.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=06&EventId=101",
+      "bytes": 6951,
+      "sha256": "9911c736650efbf3703a9c9863a972e6cc88a6f984208d848f520513cb2b50dc"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-07.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=07&EventId=101",
+      "bytes": 6967,
+      "sha256": "8e13fddeb05dce26cabea3c4c41e8b9caee6c23edb92d6936258dc5fe8a3088d"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-08.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=08&EventId=101",
+      "bytes": 6873,
+      "sha256": "e8bb9deeb94098554654ce15126a8780d0ca1195dcd5bd26a06ad97cd2c83806"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-09.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=09&EventId=101",
+      "bytes": 7084,
+      "sha256": "261903052d9305d825557c69f26154a8b3b84024ba24c8270527546f02643ae6"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-10.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=10&EventId=101",
+      "bytes": 6642,
+      "sha256": "6b34704c4173ffcbc483f0e5c93f2544067245affa06a5bc40d081bcf7ca8a2f"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-11.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=11&EventId=101",
+      "bytes": 7097,
+      "sha256": "e7dff023a59c23c843476d4363d0d11c073808f7e1e37977641e41c1f407389d"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-12.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=12&EventId=101",
+      "bytes": 6839,
+      "sha256": "2946eb768387f9015f4ebf7b9e9f4ba6cf55ec52fc9fad9b725b37d3f27eea79"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-13.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=13&EventId=101",
+      "bytes": 6923,
+      "sha256": "48d9992354736c723d4fb2c008f0d0bcc485e602ca6be8fb35259509a3ea4964"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-14.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=14&EventId=101",
+      "bytes": 6436,
+      "sha256": "6b891d37552aac6d945122995862cc0ea38e671bd76981d76f261348c45292b7"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-15.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=15&EventId=101",
+      "bytes": 6748,
+      "sha256": "b6056c4c5f25dd497162ba8cd39becda9a697fb51ccc73dc2b43c0030c0d123a"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-16.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=16&EventId=101",
+      "bytes": 6357,
+      "sha256": "2a0c0ccb13eb3ebe9be102643ce646e724cfec1082e09a3db66194b0cb2a2c71"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-17.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=17&EventId=101",
+      "bytes": 6110,
+      "sha256": "3ce9b33ab93fd4d1cd264fbd49d3337482b01d651ab670b18b7ca70578601455"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-18.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=18&EventId=101",
+      "bytes": 7429,
+      "sha256": "872247a07b9d4fd2447b8e1961814378b19fea21ea9d6e15e0cfcd94f882d1c6"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-19.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=19&EventId=101",
+      "bytes": 6132,
+      "sha256": "d848cfe5805aa5537dd566717436c0b3aa5f9f961e1e4a0e5651085ca4430d70"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-20.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=20&EventId=101",
+      "bytes": 6224,
+      "sha256": "4eabf851936d6d3cc8143477c24c386b16e916a7617f0af67362c2fec7185148"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-21.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=21&EventId=101",
+      "bytes": 6812,
+      "sha256": "9b44094cdce8afc66f228f97f71ebb16383186d9896fe76c1bc3a764e99c1cfc"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-22.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=22&EventId=101",
+      "bytes": 6411,
+      "sha256": "01c6392a70c207b5fb92c7d9946278fe25c60b7372d01438ecc661266d24fdda"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-23.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=23&EventId=101",
+      "bytes": 6470,
+      "sha256": "aaf9d4f9e15ea8048c4c6e7b2251803f483dc5e1cbcf6169a557b1765be61f05"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-24.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=24&EventId=101",
+      "bytes": 6760,
+      "sha256": "431c902c3033f86a3df74dbfa92262a511f69cd6e87a02fb5b322f2530b67759"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-25.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=25&EventId=101",
+      "bytes": 7180,
+      "sha256": "2531d55d8138c7353c0a6d360ccd687aeffd96159ae51f47985691b386c7025e"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-26.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=26&EventId=101",
+      "bytes": 6387,
+      "sha256": "a6cf87e586ff651525ab33c0dcbf2cbfbd5ee8c530afa6f565bd6c7f30b06e77"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-27.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=27&EventId=101",
+      "bytes": 6705,
+      "sha256": "302169282de054310fd681010b719b2fc4439b054d9822b63f033e35880814d2"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-28.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=28&EventId=101",
+      "bytes": 6705,
+      "sha256": "0eb7f8c0c26920c44292411acd262dc43d064219f05b01ee43c85c5e80c7e0b2"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-29.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=29&EventId=101",
+      "bytes": 7977,
+      "sha256": "4955c3ac51aa8bf71b8019d4bbc6cc319d427a1135d6b9bb3014cf4f6f4f3449"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-30.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=30&EventId=101",
+      "bytes": 6904,
+      "sha256": "e651f55c80473fac5b0b075ff747d28a7e3e6a4455b310f1d706e693968d4ccb"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-31.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=31&EventId=101",
+      "bytes": 6447,
+      "sha256": "cbe6d9c09b2e0bc5bab076b08d3a1f8d86e6d972d27871f71c60572af3177ab0"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-32.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=32&EventId=101",
+      "bytes": 7012,
+      "sha256": "386f1a698fd394d06f4ac518f8e42b1c888b95be5af8e98a9873762a72263567"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-33.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=33&EventId=101",
+      "bytes": 7121,
+      "sha256": "18a70b54b8313076873eb13fca8f2671f6868dca72b52cf0992f7113526e3cf8"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-34.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=34&EventId=101",
+      "bytes": 6960,
+      "sha256": "725df9333f7bdbc3e7f601c165f97ce0e37159b867992a6f0c6a6307a55f094f"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-35.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=35&EventId=101",
+      "bytes": 6681,
+      "sha256": "53a85d39af72a6b262c5fd4f70e409713079af62069d2cd498a4e6f7e1896573"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-36.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=36&EventId=101",
+      "bytes": 7133,
+      "sha256": "3455a910699cc77bc96b0b1b7bd64f218ab6c8c98dd2cdeb91aef0db78bdff08"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-37.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=37&EventId=101",
+      "bytes": 6587,
+      "sha256": "f90839d8ea4a394cc9778161474fbb6324b8eff56a0a54df0da1c3d486fdffce"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-38.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=38&EventId=101",
+      "bytes": 6865,
+      "sha256": "81347e87f7492f5b706130f57afc1ae97dfa3575679d0e6c6383bcca0d1e012b"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-39.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=39&EventId=101",
+      "bytes": 6968,
+      "sha256": "8bdfd4a8778b0a367cb12203beeb6d5862b46f2f22449a0adef3a47a560f7608"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-40.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=40&EventId=101",
+      "bytes": 7241,
+      "sha256": "71db74f44e7d168f49bbd3a536788b86e4fbbc55273b3154cc9d4a1aeab629bb"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-41.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=41&EventId=101",
+      "bytes": 6665,
+      "sha256": "2dae25567bb6477742b16ee68ea2333720614f630e201e4ed18787893cab2621"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-42.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=42&EventId=101",
+      "bytes": 6988,
+      "sha256": "23951896c2118f6f8655f26b643f7e85d0d75d499088e65622b774c92a041fa1"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-43.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=43&EventId=101",
+      "bytes": 6738,
+      "sha256": "c6be2eaebf1146ed4a49fbef9b0de1ecbb95fc50d66a5ca3dd8252ccc1439c7b"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-44.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=44&EventId=101",
+      "bytes": 7097,
+      "sha256": "bbacf4a2a784a064c4829612760f85731ef7b730f5fa3f6ae871a48b5a72be62"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-45.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=45&EventId=101",
+      "bytes": 6891,
+      "sha256": "561cda334f38d7875ad5c925e4c86ba95f61ae3d19dd52f59de06b20e73bc34b"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-46.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=46&EventId=101",
+      "bytes": 7040,
+      "sha256": "039cbd9d223fb4e0798e94c6e6b1ea15c3eb042cb8c958720038cb79ede9907b"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-47.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=47&EventId=101",
+      "bytes": 7131,
+      "sha256": "6ea9c0f1da48f1c10e0dd0efcd8a76a6b5b65fb11cc9ba42559771c82e295ddd"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-48.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=48&EventId=101",
+      "bytes": 6921,
+      "sha256": "88d2b853eac76d807f60494b9c04c29710c132e256f1915751a0d852f276c9d0"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-49.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=49&EventId=101",
+      "bytes": 8244,
+      "sha256": "c3b88cb4562d44f382f7b4aaeaa5f0719fac4513e80c69e4372157602e792dbd"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-50.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=50&EventId=101",
+      "bytes": 7503,
+      "sha256": "f508f3e1401b87ef7b4246be21f6533d74841a51907a5752916621704dd86e2c"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-51.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=51&EventId=101",
+      "bytes": 7211,
+      "sha256": "dc02b7b736bf2abfee5d78d277edcebc676d808eab540d5b0fd29dce54661f20"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-52.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=52&EventId=101",
+      "bytes": 7658,
+      "sha256": "6ffd95493702a08968f3d1eb93edd6ba2b4c89bb33b827618e4fcd5a5173006a"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-53.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=53&EventId=101",
+      "bytes": 7372,
+      "sha256": "03e62b8eeb44129707ee0c42ad5773a5bf4e92ac980953738725ce217971f018"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-54.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=54&EventId=101",
+      "bytes": 8687,
+      "sha256": "2733fe7cf653e4d2627c3b2d44d5b5319cf6e3acc8b282383427ad5321ddc5b3"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-55.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=55&EventId=101",
+      "bytes": 9257,
+      "sha256": "2d57ff64c5fe1a6a18c57728839924844d00ae777397fd8915dcf5475830f284"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-56.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=56&EventId=101",
+      "bytes": 7027,
+      "sha256": "f1665dbababc3861d69bec8fa1d49611d9bee33ad41ef0698dae3a87c21cec66"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-57.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=57&EventId=101",
+      "bytes": 7134,
+      "sha256": "af70f235f8e5ef839ccc9b99e231fb634bc31825c6ef2993440610e49ff3b0ba"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-58.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=58&EventId=101",
+      "bytes": 8595,
+      "sha256": "0dde6b9703f2b72e22ad9b923c7380180c7eca44ad8b62cb41716437ceea0984"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-59.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=59&EventId=101",
+      "bytes": 9556,
+      "sha256": "9acf2f08fcb0a6f76412d24da4eb597319de2d4c038c94c41839e361b45c16a0"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-60.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=60&EventId=101",
+      "bytes": 7746,
+      "sha256": "65e64be17bb684370ef105bdfcb76397e3fc7392ae22e819bacd4d55fc189b35"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-61.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=61&EventId=101",
+      "bytes": 6464,
+      "sha256": "1425240d83a8f6a62a2ff07a07eb4340fc8076d7dc36f438be4a4e9bb16f5275"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-62.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=62&EventId=101",
+      "bytes": 8802,
+      "sha256": "70ca0ff638ec6a9f498ac178bbee2efe18b7d72de5209eff13bfccb9cd1349f1"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-63.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=63&EventId=101",
+      "bytes": 7118,
+      "sha256": "77a5b2b7df864089a63ee6f344e9cb014a0ea13607cde1ce642faf7d452942a6"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-64.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=64&EventId=101",
+      "bytes": 7751,
+      "sha256": "4cd33c6ac0446f53f6cf37838244d01b1462e21654bb4fb2f5295666c276ad35"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-65.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=65&EventId=101",
+      "bytes": 6499,
+      "sha256": "d41f56aacc2d6330318b906fcf3915b3dbc68d2f22b0acd25f6f34d2c47b0795"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-66.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=66&EventId=101",
+      "bytes": 7431,
+      "sha256": "7872fd4004bb256fe3a52ca7764b535366509821947bde1910fb9f3c7fb1fbd7"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-67.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=67&EventId=101",
+      "bytes": 8653,
+      "sha256": "bbb016d84af1bab5e731b17e7c5e740ef7606305d3432c753d6184afe1025f6d"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-68.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=68&EventId=101",
+      "bytes": 7304,
+      "sha256": "17f52b8f995f1f5e5934be399eb084c48e00f839eb12ebe965155ad25dd722e1"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-69.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=69&EventId=101",
+      "bytes": 7395,
+      "sha256": "149c43f136d0748de8e03d411a25fa5dc1d1bb07d80610bb6763cb0026cba9fd"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-70.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=70&EventId=101",
+      "bytes": 8043,
+      "sha256": "7e8056e3481ddd82b27fce3aa39f2deacc57c77b1342835cb5dcb43ff5d99655"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-71.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=71&EventId=101",
+      "bytes": 7570,
+      "sha256": "3dbda9f4831ea90432b6aa23c3480bd677878792e7a2fe5273f546903d3669e3"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-72.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=72&EventId=101",
+      "bytes": 7151,
+      "sha256": "63ff217dbdf4fe944cdd1d4abe7a6464130403ef22a03fa3e97c75ab79871730"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-73.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=73&EventId=101",
+      "bytes": 8873,
+      "sha256": "fb4c449848531e1e6657004b3925a01c5b82ee582f7688b89113ce332579736c"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-74.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=74&EventId=101",
+      "bytes": 7446,
+      "sha256": "de90ca49d7404ad57f1fd32984f24c7a009b601113df20b5c6c090b9fc8f45b9"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-75.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=75&EventId=101",
+      "bytes": 7469,
+      "sha256": "7e34a6809b1fc276f6fc36514506a126f83d729c84a7ff1140f954f0cabc7a61"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-76.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=76&EventId=101",
+      "bytes": 7781,
+      "sha256": "c6a3cec95114e0a049a45c747c463ea208c0fb5efa455ca22a21aaaab54c9b19"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-77.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=77&EventId=101",
+      "bytes": 8446,
+      "sha256": "a88d2c4ac252712620ddcd169dc3729138500a1dbd3cd0260fedeed52235756a"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-78.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=78&EventId=101",
+      "bytes": 7380,
+      "sha256": "7e85743ac69a1ba95483aa857a3045c4721549898b2dce7f0e6faf7f8800d270"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-79.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=79&EventId=101",
+      "bytes": 7700,
+      "sha256": "3c8f79abf9ca6dfc175a525f6bafb2e00ea0de529ad01a9414783f0229a43674"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-80.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=80&EventId=101",
+      "bytes": 7647,
+      "sha256": "92d889bf96dfdf4fe10bc97dad095da7b89f8f9c1025e9c7f442c219cd73896c"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-81.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=81&EventId=101",
+      "bytes": 7372,
+      "sha256": "01c9fe37605af81023c2ee4318693e1b140c24cdfc3d73be0db4b723ca49d2ec"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-82.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=82&EventId=101",
+      "bytes": 7266,
+      "sha256": "2798afb08d26f4cdf82a017cb6a43e4dd14fe4273589103455298b3c956c7b04"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-83.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=83&EventId=101",
+      "bytes": 6987,
+      "sha256": "f0ef99abe4e9d34c13db990b3b5873f00cc7628b8f3a9f90222fa9d09cdce737"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-84.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=84&EventId=101",
+      "bytes": 6836,
+      "sha256": "1daf20ec9ba861e4cf707c79a2acd05e5f505889f4a391375dcf7229939c4e76"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-85.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=85&EventId=101",
+      "bytes": 7274,
+      "sha256": "783181acba6e89538d5d45b9ea6a5b98ec5715dee05aff4f5d8c1d7dd402ef60"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-86.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=86&EventId=101",
+      "bytes": 7466,
+      "sha256": "b89479d55086524fd120affe3d722e7e863f9929dc3c8d44e54563c8f97037bc"
+    },
+    {
+      "path": "data/01-raw_data/official/2023/ge/ed-87.xlsx",
+      "url": "https://officialresults.elections.ab.ca/orResultsED.cfm?MODE=exED&ED=87&EventId=101",
+      "bytes": 7270,
+      "sha256": "cc4e2d38deaa6a68d38a82fd91269034e6de4377e70204151c813d6464b21fe6"
     },
     {
       "path": "data/01-raw_data/official/2026/ed/q01.xlsx",

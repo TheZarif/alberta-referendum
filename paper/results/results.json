@@ -127,5 +127,28 @@
     "Central": 8.913675898506561,
     "North": 6.876516073444435,
     "South": 7.68172009027397
-  }
+  },
+  "party_corr_min": 0.93,
+  "party_corr_max": 0.95,
+  "q10_ridings_above_ucp": 0,
+  "region_ucp_2023": {
+    "Edmonton": 34.487012005527724,
+    "Calgary": 48.2723321296761,
+    "Central": 61.89584469149264,
+    "North": 72.41696909710767,
+    "South": 60.80793466066954
+  },
+  "r2_ucp": 0.9238307350786835,
+  "moran_resid_ucp": 0.35691439475656334,
+  "moran_resid_ucp_p": 0.0001,
+  "r2_others9": 0.9729020129623455,
+  "moran_resid_others9": 0.19209691108236324,
+  "aip_max": 2.4653766820548078,
+  "aip_corr": 0.27,
+  "aip_p": 0.033,
+  "aip_n": 63,
+  "swing_corr": 0.25,
+  "swing_p": 0.018,
+  "n_tests_significant": 2,
+  "n_tests": 5
 }

@@ -7,7 +7,7 @@ Remote: <https://github.com/TheZarif/alberta-referendum>
 ## File structure
 
 - `data/00-simulated_data` contains a simulated division-level file, used to check the pipeline before the official workbooks are downloaded.
-- `data/01-raw_data` contains the Elections Alberta workbooks and the 338Canada poll snapshot, as obtained.
+- `data/01-raw_data` contains the Elections Alberta workbooks (the 2026 referendum, the 2021 referendum, and the 2019 and 2023 general elections), the electoral division boundaries, and the 338Canada poll snapshot, as obtained.
 - `data/02-analysis_data` contains the cleaned datasets.
 - `other` contains source notes, LLM usage, saved sketches, and `collaborator/` (the original Colab notebook behind script 06, kept for reference only).
 - `notebooks` contains the analysis, as Jupyter notebooks with outputs saved and captions written for readers who don't code.
@@ -35,7 +35,7 @@ python scripts/06-spatial_analysis.py
 
 ## Spatial analysis
 
-The spatial analysis has two parts. Part 1 asks where question 10's Option 2 (start the process toward a binding separation referendum) was strongest, whether support is geographically clustered, whether that clustering is more than the city-versus-country divide, and whether turnout mattered. Part 2 compares all ten questions: how each did by riding and region, whether they share one geography (they do, almost exactly), and which ridings voted differently on question 10 than their other answers would predict.
+The spatial analysis has two parts. Part 1 asks where question 10's Option 2 (start the process toward a binding separation referendum) was strongest, whether support is geographically clustered, whether that clustering is more than the city-versus-country divide, and whether turnout mattered. Part 2 compares all ten questions: how each did by riding and region, whether they share one geography (they do, almost exactly), and which ridings voted differently on question 10 than their other answers would predict. Part 3 sets the referendum against the 2019 and 2023 provincial election results on the same boundaries: how closely each question followed the UCP vote, where questions drew beyond it or fell short, and whether separatist party votes mark the ridings that broke the pattern on question 10.
 
 - `notebooks/06-spatial_analysis.ipynb` holds all of the analysis. Its last section saves figures to `paper/figures/` and numbers and tables to `paper/results/`.
 - `paper/paper.qmd` writes up the methodology and results. It contains no analysis: every number, table and figure it shows is read from `paper/results/` and `paper/figures/`, so the text updates when the notebook is re-run.

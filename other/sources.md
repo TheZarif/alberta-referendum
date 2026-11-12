@@ -30,6 +30,12 @@ Advance, mobile, and special-ballot rows often have no elector count.
 
 The cleaned files follow the division workbooks. Those workbooks match the 29 October 2026 news release on every question except question 7. The workbook total for question 7 is 971,788 yes and 1,083,673 no. The news release printed 971,837 and 1,083,780. Ballots cast in the workbooks (valid + declined + rejected) are within four votes of the news release on the other questions. Spoiled ballots are kept separately and are not in that ballots-cast total.
 
+## 2019 and 2023 general elections
+
+`scripts/02-download_data.py` saves one poll-results workbook per electoral division for each election: `orResultsED.cfm?MODE=exED&ED=01&EventId=60` (2019) and `EventId=101` (2023), with `ED=01` through `87`. Both elections used the 2017 boundaries, so divisions match the 2026 referendum one to one. Retrieved 12 November 2026.
+
+`scripts/03-clean_data.py` reads each division's "Total (All ...)" row into `data/02-analysis_data/general_elections_2019_2023.csv`, one row per candidate. The workbooks print party codes only; the full names in `PARTY_NAMES` were matched to candidate counts reported for the 2023 election (for example 38 Solidarity Movement, 16 Wildrose Loyalty Coalition, 14 The Independence Party of Alberta and 2 Wildrose Independence Party candidates). Provincial shares from the cleaned file: UCP 52.6% and NDP 44.0% in 2023; UCP 54.9% and NDP 32.7% in 2019.
+
 ## 2021
 
 Equalization and daylight saving time were voted on 18 October 2021. The corrected daylight-saving totals, after Grande Prairie's yes and no counts were found to be swapped, are in the 26 October 2021 update: <https://www.elections.ab.ca/resources/media/news-releases/daylight-saving-time-official-results-updated/>.

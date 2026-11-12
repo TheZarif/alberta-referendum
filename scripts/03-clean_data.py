@@ -1,5 +1,6 @@
 #### Preamble ####
-# Purpose: Cleans the official referendum workbooks into analysis files.
+# Purpose: Cleans the official referendum workbooks, and the 2019 and 2023
+#   general election workbooks, into analysis files.
 # Author: TheZarif
 # Date: 1 November 2026
 # Contact: https://github.com/TheZarif
@@ -261,6 +262,82 @@ def parse_2021(path: Path, key: str) -> list[dict]:
     return records
 
 
+# Party codes printed in the 2019 and 2023 general election workbooks.
+PARTY_NAMES = {
+    "AAP": "Alberta Advantage Party",
+    "AIP": "Alberta Independence Party",
+    "AP": "Alberta Party",
+    "APA": "Advantage Party of Alberta",
+    "BPA": "Buffalo Party of Alberta",
+    "CP-A": "Communist Party - Alberta",
+    "FCP": "Freedom Conservative Party",
+    "GPA": "Green Party of Alberta",
+    "IND": "Independent",
+    "LIB": "Alberta Liberal Party",
+    "NDP": "Alberta New Democratic Party",
+    "PAPA": "Pro-Life Alberta Political Association",
+    "PC": "Progressive Conservative",
+    "REF": "Reform Party of Alberta",
+    "SM": "Solidarity Movement of Alberta",
+    "TIP": "The Independence Party of Alberta",
+    "UCP": "United Conservative Party",
+    "WIPA": "Wildrose Independence Party of Alberta",
+    "WLC": "Wildrose Loyalty Coalition",
+    "WRP": "Wildrose Party",
+}
+
+
+def parse_general_election(path: Path, year: int) -> list[dict]:
+    """Candidate totals for one division from a general election poll workbook.
+
+    The 2019 and 2023 workbooks lay out the same information slightly
+    differently, so columns are found by their header labels and the total
+    row by its 'Total (All ...' label.
+    """
+    rows = _rows(path)
+    title = _norm(rows[0][0])  # "Official Poll Results - 01 - CALGARY-ACADIA"
+    _, code, name = [part.strip() for part in title.split(" - ", 2)]
+    header_row, labels = _header_index(rows, "Valid Ballots Cast")
+    header = rows[header_row]
+    first = labels["Names on List"] + 1
+    last = labels["Valid Ballots Cast"]
+    total = next(row for row in rows[header_row + 1:]
+                 if any(_norm(cell).startswith("Total (All") for cell in row))
+    electors = _as_int(total[labels["Names on List"]])
+    valid = _as_int(total[last])
+    records = []
+    for position in range(first, last):
+        candidate, _, party = str(header[position]).rpartition("\n")
+        party = party.strip()
+        if party not in PARTY_NAMES:
+            raise ValueError(f"{path}: unknown party code {party!r}")
+        records.append({
+            "year": year,
+            "ed_code": _ed_code(code),
+            "ed_name": name,
+            "candidate": _norm(candidate),
+            "party_code": party,
+            "party": PARTY_NAMES[party],
+            "votes": _as_int(total[position]),
+            "valid_ballots": valid,
+            "electors": electors,
+        })
+    if sum(r["votes"] for r in records) != valid:
+        raise ValueError(f"{path}: candidate votes do not sum to valid ballots")
+    return records
+
+
+def parse_general_elections() -> pd.DataFrame:
+    records = []
+    for year in (2019, 2023):
+        paths = sorted((RAW / "official" / str(year) / "ge").glob("ed-*.xlsx"))
+        if len(paths) != 87:
+            raise FileNotFoundError(f"{year} has {len(paths)} division workbooks; expected 87")
+        for path in paths:
+            records.extend(parse_general_election(path, year))
+    return pd.DataFrame(records)
+
+
 def _check(name: str, actual: int, expected: int, problems: list[str]) -> None:
     if actual != expected:
         problems.append(f"{name}: parsed {actual:,} but the official total is {expected:,}")
@@ -383,10 +460,15 @@ def parse() -> None:
     older.sort_values(["question_number", "jurisdiction"]).to_csv(
         ANALYSIS / "jurisdiction_results_2021.csv", index=False
     )
+    general = parse_general_elections()
+    general.sort_values(["year", "ed_code", "votes"], ascending=[True, True, False]).to_csv(
+        ANALYSIS / "general_elections_2019_2023.csv", index=False
+    )
     print(
         "Wrote "
         f"{len(ed):,} division rows, {len(polls):,} poll rows, "
-        f"and {len(older):,} 2021 jurisdiction rows"
+        f"{len(older):,} 2021 jurisdiction rows, "
+        f"and {len(general):,} 2019 and 2023 candidate rows"
     )
 
 

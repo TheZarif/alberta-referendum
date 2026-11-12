@@ -118,6 +118,19 @@ next_up = departures[departures["gap_points"] > 0].iloc[1:]
 next_up_text = ", ".join(f"{r.riding} ({r.region}, +{r.gap_points:.1f})" for r in next_up.itertuples())
 low_dep = departures.sort_values("gap_points").iloc[0]
 
+# Party vote
+party_corr = pd.read_csv("results/party_correlations.csv", index_col=0)
+party_gap = pd.read_csv("results/party_gap_by_region.csv", index_col=0)
+separatist = pd.read_csv("results/separatist_departures.csv", index_col=0)
+ucp_reg = R["region_ucp_2023"]
+pc_min, pc_max = i2(R["party_corr_min"]), i2(R["party_corr_max"])
+above_ucp = party_corr["Ridings above UCP share"]
+gap_to_ucp = party_corr["Average gap to UCP share (points)"]
+edm_imm = party_gap.loc["Edmonton"].iloc[0:5]
+q10_short = -party_gap.iloc[:, 9]
+the = {"North": "the North", "South": "the South"}
+q10_short_most = " and ".join(the.get(r, r) for r in q10_short[q10_short >= q10_short.max() - 0.5].index)
+
 # Turnout
 rho = i2(R["turnout_rho"])
 t_med = R["turnout_median_by_region"]
@@ -143,6 +156,8 @@ Division boundaries are the 2017 electoral divisions, which were in force for th
 Each riding is assigned to one of five regions (@fig-regions). Calgary and Edmonton contain only the ridings within those cities; suburbs and nearby towns such as St. Albert, Sherwood Park, Airdrie and Chestermere are part of Central. These labels were carried over from an earlier exploratory notebook and have not been checked against an official classification.
 
 ![The five regions used in the analysis. Thin white lines are riding boundaries; dark lines are region boundaries. Calgary (26 ridings) and Edmonton (20) are the small areas inside Central and South.](figures/regions.png){#fig-regions width=45%}
+
+To compare the referendum with party support, we use Elections Alberta's official results for the 2019 and 2023 provincial general elections [@electionsalberta2023], which were held on the same 2017 boundaries, so every riding matches exactly. A party's share is its votes as a percentage of valid ballots in the riding. In each riding the candidate votes sum to the valid ballots, and the provincial totals reproduce the published results (UCP 52.6% and NDP 44.0% in 2023; UCP 54.9% and NDP 32.7% in 2019). Three small parties serve as indicators of separatist sentiment: the Alberta Independence Party in 2019, which ran in 63 ridings, and The Independence Party of Alberta and the Wildrose Independence Party in 2023, which together ran in 15. Where a party had no candidate, the riding is excluded from that comparison rather than counted as zero.
 
 Turnout is ballots cast divided by the elector count printed in the division workbooks. Those elector counts are higher than the count in the news release, so riding-level turnouts are a few points below the headline provincial figure of 70.4%.
 
@@ -173,6 +188,14 @@ Local clustering uses local Moran's I [@anselin1995]. Each riding is classified 
 Agreement between questions is measured by the Pearson correlation of riding-level support across the 87 ridings, and by the share of total variance captured by the first principal component of the ten-by-ten correlation matrix. Region-level support is computed from summed votes, so larger ridings carry more weight.
 
 To find ridings where Question 10 departed from the rest of the ballot, we regress each riding's Question 10 support on its average support across questions 1 to 9, using a quadratic fit because the relationship curves at low levels of support. The residual is the riding's **departure**: the number of percentage points by which its Question 10 result was above or below what its other answers predict. We test whether departures are themselves clustered with Moran's I. We also compute a **carry-over ratio**, Question 10 support divided by average support on questions 1 to 9, which expresses how much of a riding's support for the other proposals extended to separation.
+
+## The referendum and the party vote
+
+For each question we report the correlation across ridings between support and the UCP's 2023 share, and the difference between them: how far a question's support ran above or below the governing party's own vote in the same place. Region-level differences use summed votes for both the referendum and the election. To test whether the party vote accounts for the referendum's geography, we fit Question 10 support on the 2023 UCP share with a quadratic and compute Moran's I on the residuals, as for the departures above.
+
+To test whether past votes mark the ridings that departed from the pattern on Question 10, we correlate the departures with five election measures: the Alberta Independence Party share in 2019, the combined share of the two 2023 independence parties, the Freedom Conservative Party share in 2019, the change in the UCP share from 2019 to 2023, and the UCP share in 2023. Significance comes from `{python} n_perm` random permutations of one variable, two-sided. We report all five tests and make no correction for multiple comparisons, so individual p-values near 0.05 should be read with caution.
+
+Elections and referendums have different electorates and turnout, three years apart. A riding's referendum support falling below its UCP share does not show that UCP voters in that riding voted against a proposal; it shows that the proposal did worse there than the party had.
 
 ## Turnout
 
@@ -236,6 +259,18 @@ The questions are close to interchangeable as maps (@fig-ten-maps). Every pair o
 
 The ballot therefore did not reveal ten separate geographies of opinion. It measured one urban–rural divide ten times, at different levels. The two groups of questions differ slightly in where their support came from: the gap between the immigration and voting questions and the constitutional questions was widest in Edmonton (`{python} pts(block["Edmonton"])` points) and Calgary (`{python} pts(block["Calgary"])`) and narrowest in the North (`{python} pts(block["North"])`). City voters were relatively more open to the immigration proposals than to constitutional change.
 
+## The referendum followed the governing party's vote, at different heights
+
+The single geography of the referendum is close to the geography of the UCP vote. Across ridings, every question's support correlates with the party's 2023 share at `{python} pc_min` to `{python} pc_max` (@fig-party). The questions differ in where they sit against that vote. The immigration and voting questions ran close to it: their support exceeded the UCP share in `{python} str(above_ucp.iloc[0:5].min())` to `{python} str(above_ucp.iloc[0:5].max())` of 87 ridings. The constitutional questions ran below it, exceeding the UCP share in at most `{python} str(above_ucp.iloc[5:9].max())` ridings and falling `{python} pts(-gap_to_ucp.iloc[5:9].max(), 0)` to `{python} pts(-gap_to_ucp.iloc[5:9].min(), 0)` points short on average. Question 10 fell below the UCP share in all 87 ridings, by `{python} pts(-gap_to_ucp.iloc[9], 0)` points on average.
+
+![Referendum support against the UCP's 2023 share, by riding. The dashed line marks equal values; points above it are ridings where the question did better than the UCP had.](figures/party_vs_support.png){#fig-party}
+
+The regional breakdown shows where each group of questions found support beyond the party (@fig-party-gap). In Edmonton, where the UCP took `{python} pc(ucp_reg["Edmonton"], 0)` of the 2023 vote, the immigration and voting questions ran `{python} pts(edm_imm.min(), 0)` to `{python} pts(edm_imm.max(), 0)` points above it: these proposals drew support from well outside the governing party's electorate. Elsewhere they ran within a few points of the UCP vote. The constitutional questions fell short of the UCP vote in every region. Question 10 fell short by `{python} pts(q10_short.min(), 0)` to `{python} pts(q10_short.max(), 0)` points, most in `{python} q10_short_most`. In the North, where the UCP took `{python} pc(ucp_reg["North"], 0)` of the vote, separation drew `{python} pc(regions_q10.loc["North", "Option 2 share (%)"], 0)`.
+
+![Referendum support minus the UCP's 2023 share, by region and question, from summed votes. Regions are labelled with the UCP's 2023 share.](figures/party_gap_heatmap.png){#fig-party-gap}
+
+The party vote does not, however, account for all of the referendum's geography. The 2023 UCP share explains `{python} pc(100 * R["r2_ucp"], 0)` of the variation in Question 10 support across ridings, but the remainder is still spatially clustered (Moran's I = `{python} i2(R["moran_resid_ucp"])`, p = 0.0001). Neighbouring ridings miss the party-based prediction in the same direction, so some of the regional pattern in the separation vote is not a reflection of 2023 partisanship. The other referendum questions predict Question 10 better (`{python} pc(100 * R["r2_others9"], 0)`, with leftover clustering of `{python} i2(R["moran_resid_others9"])`).
+
 ## Separation sits at the far end of the same divide, below a ceiling
 
 Question 10 drew from the same places as every other question, but its support was not a fixed fraction of theirs. In the `{python} str(R["n_all_nine"])` ridings where all nine other proposals won a majority, Option 2 ranged from `{python} pc(R["q10_all_nine_min"])` to `{python} pc(R["q10_all_nine_max"])`, with a median of `{python} pc(R["q10_all_nine_median"])`; only `{python} str(R["q10_all_nine_over_50"])` crossed 50%. In the `{python} str(R["n_none_nine"])` ridings where none of the nine won a majority, almost all in the two cities, the median was `{python} pc(R["q10_none_nine_median"])`.
@@ -259,9 +294,23 @@ dep["Departure (points)"] = dep["Departure (points)"].map("{:+.1f}".format)
 md_table(dep.rename_axis("Label").reset_index(), [8, 45, 17, 25], "rllr")
 ```
 
-The largest positive departure was `{python} top_dep["riding"]`, where Option 2 ran `{python} pts(top_dep["gap_points"])` points above prediction, followed by `{python} next_up_text`. On average, northern ridings gave separation `{python} pts(gap_reg["North"])` points more than their other answers implied, and southern ridings `{python} pts(gap_reg["South"])` points more (@fig-q10-gap). The largest negative departures were in east-central Alberta, led by `{python} low_dep["riding"]` (`{python} pts(low_dep["gap_points"])` points), and in a group of Calgary ridings. These ridings stopped further short of separation than their answers on the other nine questions would predict. Explaining these differences would require data on who lives in each riding, which this analysis does not include.
+The largest positive departure was `{python} top_dep["riding"]`, where Option 2 ran `{python} pts(top_dep["gap_points"])` points above prediction, followed by `{python} next_up_text`. On average, northern ridings gave separation `{python} pts(gap_reg["North"])` points more than their other answers implied, and southern ridings `{python} pts(gap_reg["South"])` points more (@fig-q10-gap). The largest negative departures were in east-central Alberta, led by `{python} low_dep["riding"]` (`{python} pts(low_dep["gap_points"])` points), and in a group of Calgary ridings. These ridings stopped further short of separation than their answers on the other nine questions would predict.
 
 ![Departure of each riding's Question 10 result from the fitted curve, with Calgary and Edmonton enlarged. Orange ridings gave Option 2 more support than their other answers predict; purple ridings gave less.](figures/q10_gap_map.png){#fig-q10-gap}
+
+Past elections only faintly mark these ridings (@tbl-separatist). Departures were larger where the Alberta Independence Party did better in 2019 (correlation `{python} i2(R["aip_corr"])` across `{python} str(R["aip_n"])` ridings, p = `{python} f"{R['aip_p']:.3f}"`), although that party never won more than `{python} pc(R["aip_max"])` of a riding's vote (@fig-aip). They were also larger where the UCP's share rose more, or fell less, between 2019 and 2023 (correlation `{python} i2(R["swing_corr"])`, p = `{python} f"{R['swing_p']:.3f}"`), the first election after Danielle Smith became party leader. The UCP's 2023 share itself was unrelated to the departures, so the association is with the movement of the party's vote, not its level. Both correlations are weak, each accounting for less than a tenth of the variation, and they are two significant results among five uncorrected tests. They suggest where to look rather than explain the departures; doing so would require data on who lives in each riding.
+
+```{python}
+#| label: tbl-separatist
+#| tbl-cap: "Correlation between each riding's Question 10 departure and election measures, with two-sided permutation p-values. Ridings without a candidate from the party are excluded."
+sep = separatist.reset_index()
+sep["Correlation with departure"] = sep["Correlation with departure"].map("{:+.2f}".format)
+sep["p"] = sep["p"].map("{:.3f}".format)
+sep["Ridings"] = sep["Ridings"].astype(int).astype(str)
+md_table(sep, [52, 12, 24, 12], "lrrr")
+```
+
+![Question 10 departure against the Alberta Independence Party's 2019 share, in the 63 ridings where it ran.](figures/departures_aip.png){#fig-aip width=75%}
 
 ## Turnout does not account for the pattern
 

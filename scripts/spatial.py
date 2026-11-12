@@ -121,6 +121,28 @@ def load_support() -> tuple[pd.DataFrame, pd.DataFrame]:
     return support, votes
 
 
+def load_party_shares() -> pd.DataFrame:
+    """Party vote shares (% of valid ballots) by division, from the 2019 and
+    2023 general elections, which used the same 2017 boundaries.
+
+    Columns: UCP_2019, NDP_2019, AIP_2019, FCP_2019, UCP_2023, NDP_2023 and
+    independence_2023 (The Independence Party of Alberta plus the Wildrose
+    Independence Party). Small parties that did not run everywhere are NaN
+    where they had no candidate, so that "no candidate" is not read as 0%.
+    """
+    ge = pd.read_csv(ANALYSIS / "general_elections_2019_2023.csv", dtype={"ed_code": str})
+    ge["share"] = 100 * ge["votes"] / ge["valid_ballots"]
+    wide = ge.pivot_table(index="ed_code", columns=["party_code", "year"], values="share", aggfunc="sum")
+    out = pd.DataFrame(index=wide.index)
+    for party, year in (("UCP", 2019), ("NDP", 2019), ("AIP", 2019), ("FCP", 2019),
+                        ("UCP", 2023), ("NDP", 2023)):
+        out[f"{party}_{year}"] = wide[(party, year)]
+    independence = wide[[("TIP", 2023), ("WIPA", 2023)]]
+    out["independence_2023"] = independence.sum(axis=1, min_count=1)
+    assert out[["UCP_2019", "NDP_2019", "UCP_2023", "NDP_2023"]].notna().all().all()
+    return out
+
+
 def region_outlines(gdf: gpd.GeoDataFrame, gap_m: float = 300, min_km2: float = 10) -> gpd.GeoSeries:
     """One outline per region, for drawing region borders on maps.
 

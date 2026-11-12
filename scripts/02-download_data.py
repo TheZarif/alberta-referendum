@@ -1,5 +1,6 @@
 #### Preamble ####
-# Purpose: Downloads the official Elections Alberta referendum workbooks.
+# Purpose: Downloads the official Elections Alberta referendum workbooks, and
+#   the 2019 and 2023 general election results by electoral division.
 # Author: TheZarif
 # Date: 1 November 2026
 # Contact: https://github.com/TheZarif
@@ -68,6 +69,15 @@ def referendum_2021_url(question_number: int) -> str:
     )
 
 
+# Elections Alberta event ids for the general elections held on the 2017
+# boundaries, the same 87 divisions as the 2026 referendum.
+GENERAL_ELECTIONS = {2019: 60, 2023: 101}
+
+
+def general_election_url(event_id: int, ed: int) -> str:
+    return f"{OFFICIAL_BASE}/orResultsED.cfm?MODE=exED&ED={ed:02d}&EventId={event_id}"
+
+
 def _thread_session() -> requests.Session:
     http = getattr(_THREAD, "session", None)
     if http is None:
@@ -117,6 +127,14 @@ def planned_downloads() -> list[tuple[str, Path]]:
                 RAW / "official" / "2021" / f"{key}.xlsx",
             )
         )
+    for year, event_id in GENERAL_ELECTIONS.items():
+        for ed in range(1, 88):
+            jobs.append(
+                (
+                    general_election_url(event_id, ed),
+                    RAW / "official" / str(year) / "ge" / f"ed-{ed:02d}.xlsx",
+                )
+            )
     return jobs
 
 
