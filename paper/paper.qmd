@@ -1,5 +1,5 @@
 ---
-title: "One Divide, Ten Questions: The Geography of Alberta's 2026 Referendum"
+title: "Voting Patterns in Alberta's 2026 Referendum"
 author:
   - Joseph
   - Zarif
