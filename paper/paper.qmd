@@ -139,6 +139,40 @@ t_med = R["turnout_median_by_region"]
 rho_reg = R["turnout_rho_by_region"]
 ```
 
+# Introduction
+
+Alberta's recent October 2026 referendum presented voters with ten questions addressing a range of political and constitutional issues, including immigration policy, provincial jurisdiction, federal-provincial relations, and the possibility of pursuing separation from Canada. Instead of asking voters to endorse a single political proposition, the referendum presented a series of confusing questions regarding Alberta's relationship with the Canadian constitution and the direction of provincial policy. The resulting voting patterns provide an opportunity to examine how Albertans responded to these different political concerns and whether support for particular measures corresponded with support for broader constitutional change.
+
+The modern separatist campaign is typically associated with modern alt-right movements, particularly the 2022 Freedom Convoy. However, the movement also arises from a longer provincial history of contention with the federal government, as well as broader class and cultural divides between the urban and rural populations. Alongside the United Conservative Party (UCP) and their implementation of \[increasingly nightmare policies\], the October 2026 referendum offers a particularly poignant snapshot into Alberta's current political landscape. Who is interested in the idea of separation? Who aligns with UCP's policies outside of the "ticket issue?"
+
+This paper examines voting patterns across the ten referendum questions to investigate how support varied between distinct policy and constitutional objectives, and how these patterns were distributed geographically. It queries whether differences in support suggest that voters distinguished between particular conservative policy positions and broader demands for provincial autonomy or constitutional change. It further situates these patterns within the historical realignment of Alberta's conservative political movement, examining the extent to which the UCP's ideological diversity and political messaging may help explain the divergence between voting preferences across the referendum.
+
+The central research question guiding this paper asks how the voting patterns across Alberta's October 2026 referendum questions reflect the ideological diversity and historical realignment of Alberta's conservative political landscape. This question is addressed through two secondary questions:
+
+> How did voting patterns vary across the ten referendum questions, and what differences emerged between support for immigration-related measures, constitutional reforms, and the question of separation from Canada?
+>
+> To what extent did voting patterns vary geographically across electoral divisions, and what patterns of support and opposition can be identified?
+
+# Background
+
+Understanding these voting patterns requires attention to the historical development of Alberta's political landscape. The province has a longstanding tradition of political uniqueness, shaped by disputes over federal authority, resource governance, regional representation, and provincial autonomy. These tensions have been articulated through various political movements, including the Reform Party, the Wildrose Party, and, more recently, the United Conservative Party. The formation of the UCP in 2017 brought together the former Progressive Conservative and Wildrose movements, merging Albertan conservatism under a single political umbrella. Under Danielle Smith's leadership, questions of provincial autonomy and resistance to federal authority have assumed renewed prominence. \[include examples\]
+
+This political merger raises questions about the ideological composition of contemporary Alberta conservatism. The UCP encompasses a wide range of political beliefs, from mainstream fiscal and social conservatism to populist, nationalist, and most contentiously, sovereigntist positions. Although these traditions share certain political commitments, they do not necessarily align on questions of federalism, constitutional reform, or the future of Alberta within Canada. The party's ability to accommodate these different constituencies within a common political identity is atypical and an important feature when examining the political context of the referendum.
+
+## Populism, Identity, and Layered Alienation
+
+Alberta’s contemporary political landscape is rooted in a longer history of regional political distinctiveness, populism, and resistance to perceived external authority. Macpherson’s (1953) account of Alberta’s quasi-party system and Laycock’s (1990) historical analysis of Prairie populism demonstrate that anti-establishment politics and challenges to conventional party structures are not recent developments. Rather, they form part of a political tradition in which appeals to popular sovereignty, individualism, and distrust of established political institutions have repeatedly been mobilized.
+
+Western alienation has been particularly influential in this political history. Disputes over federal authority, resource governance, and the distribution of economic benefits have contributed to a persistent perception that Alberta’s interests are insufficiently represented within Confederation. A key example, the National Energy Program \[more about this nonsense\]
+
+Clark Banack’s (2021) ethnographic study of rural Alberta offers a contemporary framework for understanding how these sentiments develop and become politically relevant by emphasizing the role of social identity and belonging in shaping political opinion. His research identifies three overlapping forms of alienation among rural Albertans, specifically western alienation, political alienation among those who identify as “ordinary people,” and rural alienation rooted in the perceived marginalization of rural communities. As Banack explains, these forms of alienation are often experienced as “being layered, frequently melting into each other” (2021, p. 4). This concept of layered alienation is important because \[people’s concerns aren't entirely tied to their issues, the feelings can be extended into secondary or even tertiary problems, and that leaves room for political manipulation. Need better wording here\]
+
+Banack’s findings complicate conventional explanations of conservative political attitudes as his participants consistently articulated a shared moral vocabulary centred on “common sense, hard work, self-reliance” and being “down-to-earth” (2021, p. 13). These values were understood as defining characteristics of rural community identity and the resulting political outlook combined elements of libertarianism, individual responsibility, community solidarity, and opposition to government intervention. This demonstrates that conservative political identification can encompass different, and sometimes potentially oppositional, expectations of government. For example, a preference for limited government can coexist with demands that provincial institutions defend local industries, communities, and regional interests.
+
+Banack further demonstrates how these overlapping identities can shape interpretations of immigration and Indigenous policy. Participants frequently connected their own perceived marginalization to the belief that governments were directing resources and attention toward other groups while neglecting rural communities. He notes that resentment toward newcomers and Indigenous peoples was sometimes articulated through a moral framework emphasizing hard work, self-reliance, and equal treatment (Banack, 2021, p17–19). Though this does not mean that all rural Albertans share these attitudes, nor that such views characterize Alberta conservatism as a whole, it does illustrate quite clearly how political grievances that are associated with regional and social identity can also become connected to broader anti-establishment and exclusionary political attitudes.
+
+\[some kind of closing sentence\]
+
 # Methodology
 
 ## Data
@@ -157,7 +191,7 @@ Division boundaries are the 2017 electoral divisions, which were in force for th
 
 Each riding is assigned to one of five regions (@fig-regions). Calgary and Edmonton contain only the ridings within those cities; suburbs and nearby towns such as St. Albert, Sherwood Park, Airdrie and Chestermere are part of Central. These labels were carried over from an earlier exploratory notebook and have not been checked against an official classification.
 
-![The five regions used in the analysis. Thin white lines are riding boundaries; dark lines are region boundaries. Calgary (26 ridings) and Edmonton (20) are the small areas inside Central and South.](figures/regions.png){#fig-regions width=45%}
+![The five regions used in the analysis. Thin white lines are riding boundaries; dark lines are region boundaries. Calgary (26 ridings) and Edmonton (20) are the small areas inside Central and South.](figures/regions.png){#fig-regions width="45%"}
 
 To compare the referendum with party support, we use Elections Alberta's official results for the 2019 and 2023 provincial general elections [@electionsalberta2023], which were held on the same 2017 boundaries, so every riding matches exactly. A party's share is its votes as a percentage of valid ballots in the riding. In each riding the candidate votes sum to the valid ballots, and the provincial totals reproduce the published results (UCP 52.6% and NDP 44.0% in 2023; UCP 54.9% and NDP 32.7% in 2019). Three small parties serve as indicators of separatist sentiment: the Alberta Independence Party in 2019, which ran in 63 ridings, and The Independence Party of Alberta and the Wildrose Independence Party in 2023, which together ran in 15. Where a party had no candidate, the riding is excluded from that comparison rather than counted as zero.
 
@@ -229,7 +263,7 @@ Most of this clustering is the difference between regions. After subtracting reg
 
 The local analysis shows the shape of the divide (@fig-lisa). `{python} str(lisa["High-High"])` ridings are significant hotspots: every riding in the North (`{python} str(hot.get("North", 0))`), `{python} str(hot.get("Central", 0))` in rural Central Alberta and `{python} str(hot.get("South", 0))` in the southeast around Medicine Hat, Brooks and Cardston. They form one contiguous area. `{python} str(lisa["Low-Low"])` ridings are significant coldspots, all in the older, central parts of Edmonton (`{python} str(cold.get("Edmonton", 0))`) and Calgary (`{python} str(cold.get("Calgary", 0))`). No riding is a significant outlier. The remaining `{python} str(lisa["Not significant"])` ridings, including the outer city ridings, the suburbs and towns around both cities, Red Deer, Lethbridge and the southwest foothills, sit between the two blocs.
 
-![Significant local clusters of Option 2 support (conditional permutation, p < 0.05), with Calgary and Edmonton enlarged. Grey ridings show no pattern beyond chance.](figures/q10_lisa_map.png){#fig-lisa}
+![Significant local clusters of Option 2 support (conditional permutation, p \< 0.05), with Calgary and Edmonton enlarged. Grey ridings show no pattern beyond chance.](figures/q10_lisa_map.png){#fig-lisa}
 
 ## Ten questions, one map
 
@@ -312,7 +346,7 @@ sep["Ridings"] = sep["Ridings"].astype(int).astype(str)
 md_table(sep, [52, 12, 24, 12], "lrrr")
 ```
 
-![Question 10 departure against the Alberta Independence Party's 2019 share, in the 63 ridings where it ran.](figures/departures_aip.png){#fig-aip width=75%}
+![Question 10 departure against the Alberta Independence Party's 2019 share, in the 63 ridings where it ran.](figures/departures_aip.png){#fig-aip width="75%"}
 
 ## Turnout does not account for the pattern
 
