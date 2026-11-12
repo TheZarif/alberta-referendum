@@ -1,0 +1,131 @@
+{
+  "n_ridings": 87,
+  "q10_option1_votes": 1556316,
+  "q10_option2_votes": 520233,
+  "q10_option2_pct": 25.05276783740716,
+  "q10_majority_ridings": [
+    "Rimbey-Rocky Mountain House-Sundre",
+    "Central Peace-Notley"
+  ],
+  "q10_majority_pcts": [
+    50.937487453326376,
+    50.45992115637319
+  ],
+  "q10_max_riding": "Rimbey-Rocky Mountain House-Sundre",
+  "q10_max_pct": 50.937487453326376,
+  "q10_min_riding": "Edmonton-Strathcona",
+  "q10_min_pct": 9.275485208215564,
+  "q10_city_max_pct": 23.266337931464953,
+  "q10_city_ridings_below_province": 46,
+  "n_city_ridings": 46,
+  "q10_top20_by_region": {
+    "North": 9,
+    "Central": 8,
+    "South": 3
+  },
+  "q10_median_by_region": {
+    "Calgary": 17.514513534252135,
+    "Central": 32.03932492590548,
+    "Edmonton": 14.79803279563103,
+    "North": 41.006714832974524,
+    "South": 35.01889451098444
+  },
+  "moran_i": 0.7338723816424744,
+  "moran_p": 0.0001,
+  "moran_perm_max": 0.25763201456925444,
+  "n_permutations": 9999,
+  "moran_sensitivity": {
+    "Shared border (main result)": 0.73,
+    "3 nearest ridings": 0.67,
+    "5 nearest ridings": 0.64,
+    "7 nearest ridings": 0.57,
+    "10 nearest ridings": 0.49
+  },
+  "moran_i_within_regions": 0.11440342150618045,
+  "moran_p_within_regions": 0.0328,
+  "lisa_counts": {
+    "Not significant": 45,
+    "High-High": 22,
+    "Low-Low": 20
+  },
+  "lisa_hotspots_by_region": {
+    "North": 10,
+    "Central": 9,
+    "South": 3
+  },
+  "lisa_coldspots_by_region": {
+    "Edmonton": 12,
+    "Calgary": 8
+  },
+  "turnout_min_riding": "Edmonton-Decore",
+  "turnout_min_pct": 50.8356545961,
+  "turnout_max_riding": "Sherwood Park",
+  "turnout_max_pct": 80.6740847449,
+  "turnout_rho": -0.17704308522271633,
+  "turnout_rho_by_region": {
+    "Edmonton": -0.32,
+    "Calgary": 0.31,
+    "Central": -0.62,
+    "North": 0.61,
+    "South": -0.7
+  },
+  "turnout_median_by_region": {
+    "Calgary": 70.30529761170001,
+    "Central": 67.99192764509999,
+    "Edmonton": 65.96157655030001,
+    "North": 58.04552157415,
+    "South": 65.2627789777
+  },
+  "support_spread_min": 41.66200224511081,
+  "support_spread_max": 55.045753466537946,
+  "region_gap_min": 25.659271285850153,
+  "region_gap_max": 30.969934962905334,
+  "calgary_minus_edmonton_min": 3.0667761947145316,
+  "calgary_minus_edmonton_max": 5.431609480319217,
+  "corr_min": 0.9582865937260929,
+  "corr_max": 0.9990363819429812,
+  "first_pattern_pct": 98.91014823522957,
+  "curve_r2": 0.9729020129623456,
+  "gap_moran_i": 0.19209691108236324,
+  "gap_moran_p": 0.0016,
+  "gap_by_region": {
+    "Edmonton": -0.3692700738914903,
+    "Calgary": -0.47200262707953733,
+    "Central": -0.659139480144798,
+    "North": 2.202129901990961,
+    "South": 1.3485821472414534
+  },
+  "n_all_nine": 27,
+  "q10_all_nine_min": 30.94424682139964,
+  "q10_all_nine_max": 50.937487453326376,
+  "q10_all_nine_median": 41.37377259796274,
+  "q10_all_nine_over_50": 2,
+  "n_none_nine": 24,
+  "q10_none_nine_median": 14.154544982269977,
+  "none_nine_by_region": {
+    "Edmonton": 13,
+    "Calgary": 9,
+    "South": 1,
+    "Central": 1
+  },
+  "all_nine_by_region": {
+    "Central": 12,
+    "North": 9,
+    "South": 6
+  },
+  "carryover_by_region": {
+    "Edmonton": 0.38378239658792823,
+    "Calgary": 0.4156872684599773,
+    "Central": 0.5335567917490056,
+    "North": 0.6158955059322516,
+    "South": 0.5699812047339251
+  },
+  "carryover_corr": 0.915324667159051,
+  "block_gap_by_region": {
+    "Edmonton": 10.724911480236216,
+    "Calgary": 9.65863921077861,
+    "Central": 8.913675898506561,
+    "North": 6.876516073444435,
+    "South": 7.68172009027397
+  }
+}
