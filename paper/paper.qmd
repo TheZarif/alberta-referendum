@@ -7,7 +7,7 @@ author:
   - Lewis Sang
 date: 2026-11-12
 date-format: long
-abstract: "The Alberta 2026 Referendum is emblematic of the changing and polarising political landscape within the province. In this paper we asked how the voting patterns across Alberta's October 2026 referendum questions reflect the ideological diversity and historical realignment of Alberta's conservative political landscape. The results and votes were collected from Elections Alberta and mapped across the 10 questions and electoral divisions. This paper demosntrates the geopolitical divisions in the province within the largest context of political conservatism in the legislature, particularly along the lines of urban and rural populations."
+abstract: "The Alberta 2026 Referendum is emblematic of the changing and polarising political landscape within the province. In this paper we asked how the voting patterns across Alberta's October 2026 referendum questions reflect the ideological diversity and historical realignment of Alberta's conservative political landscape. The results and votes were collected from Elections Alberta and mapped across the 10 questions and electoral divisions. This paper demonstrates the geopolitical divisions in the province within the largest context of political conservatism in the legislature, particularly along the lines of urban and rural populations."
 format:
   pdf:
     documentclass: article
